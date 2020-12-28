@@ -1,0 +1,10 @@
+= COMP36111 =
+
+This is the algorithms and complexity course from the university of manchester taught by Ian Pratt-Hartmann
+
+* [[Lecture 1 - Strongly Connected Components]]
+* [[Lecture 2 - Union find]]
+* [[Lecture 3 - Fast and Slow (Union find analysis)]]
+* [[Lecture 4 - Flow networks and matching]]
+* [[Lecture 5 - The Machine Stops]]
+* [[Lecture 8 - How hard can this be?]]

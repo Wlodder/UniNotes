@@ -1,0 +1,49 @@
+= Topological sorting = 
+
+A cycle in a directed graph G is a path from a vertex to itself.
+A graph is cyclic if there exists a cycle in the graph otherwise it is acyclic.
+ 
+Lemma
+
+Let $G$ be a directed graph.
+
+If $ G $ has no cycles, then there is some vertex with zero in-degree (a sink).
+
+
+Proof idea
+
+Lets assume every node has positive in-degree. Hence there exists at least one node that points to every other node.
+
+{{$
+	u_{j} \rightarrow u_{i} \rightarrow ... \rightarrow u_{1} \rightarrow u_{0}
+}}$
+There will eventually be a point where j = i, such that j > i, (a node we've already seen before) hence a cycle will have been found. 
+This is because we will eventually run out of nodes to add to the list due to our assumption that G (the set of nodes) is finite. Hence by proof by contradiction, we prove our Lemma.
+
+A topological sorting of a directed graph $ G = (V,E) $ is an ordering of its vertices as $ V = \{u_{0},...,u_{n-1}\}$ such that, for all edges $ (u_{i},u_{j}) $ we have i < j. 
+
+== The algorithm ==
+
+* Data structures used : stack.
+
+The algorithm goes like this:
+1) If nodes is empty Goto(6)
+2) Find nodes with 0 in degree ,remove from graph and add to stack
+3) Remove node from stack and add to list head
+4) If stack is empty Goto (1)
+5) Goto (3)
+6) If size(list) != n then graph is cyclic
+
+This is true because if we have a list of nodes with fewer than n nodes in it this implies we have left some nodes in the Graph structure which is only the case when cycles are present, See Lemma above.
+
+=== Correctness proof ===
+* When a vertex is popped off the stack, all of its predecessors (transitively) must already have been popped off the stack and so must have a lower index.
+* If all vertices have been indexed, we have a topological ordering.
+* If some vertices are not indexed, there is no topological ordering
+
+Running time: $ O(m + n)~where~n = |V|~and~m = |E| $
+
+What do we do if we want to topolically order and there cycles?
+
+We can factor the graph into acyclic components using Strongly Connected Components. When we form these subsets of strongly connected components it must be true that these sets of strongly connected components (subsets of the larger graph) can form 'super nodes' which are acyclic to one another.
+

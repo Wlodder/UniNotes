@@ -1,0 +1,50 @@
+= Plasticity =
+
+== Introduction == 
+
+There are two different kinds of potentiation and depression, synaptic strength increases and decreases. These occur using a mechanism called STDP (Spike-Timing-Dependent-Plasticity). 
+This is the main mechanism of neuron to neuron learning and it is a form of local Hebbian learning. Through this neurons will synchronize spike firing best captured by "Neuron's that fire together wire together".
+
+== Short-term Potentiation/Depression ==
+
+As seen in the Neuron section of these notes, neurons have a refactory period after firing, in addition to what is described some neuron models, including this one, employ what I like to call "adaptive thresholding". This varies with neuron to neuron but it is easy to think about it as a form of homeostatis.
+If you did not do Biology GCSE/A-level, homeostasis is the way living creatures remain at internal equilibrium by regulating internal body temperature via sweating etc. The way our neurons do this is by making it easier or harder to fire again within a short time span: the time scale of the refactory period. 
+The way Cook and Diehl do this is, yet again, using a system of equations.
+
+{{$
+	v_{thresh}^{t+1} = v_{thresh}^{t} + (v > v_{thresh}) * \Theta
+}}$
+
+As you can imagine this is to stop certain neurons from dominating the model and becoming too strong. There is another mechanism to deal with this which we will see later.
+
+== Spike-Timing-Dependent-Plasticity ==
+
+This what many people consider to be the main form of learning from neuron to neuron and also being the most biologically plausible learning method we have. 
+It is:
+* Unsupervised
+* Local
+* Uses spikes
+
+Compared to most of the other prominent machine learning algorithms (SVM, gradeint boosted methods, backpropagation) this has the most potential yet is the least understood and hence does not have any current practical, scalable applications. There have been many different experiments giving successful results using STDP and Spiking Neuron Networks on small datasets, such as MNIST, however when it comes to convergence on larger datasets, like CIFAR-100, it is out classed. Whether is because of the lack of understanding of models, low number of neurons available or constraints of digital technology, this project along with other's in the field will help to cement SNNs as valid and sometimes superior to their artificial counter parts.
+
+
+As discussed before the membrane potential of the neuron increases/decreases on spike arrival, however for many implementations we also keep track of another variable for our synapses as well. This variable is often called the "Post Synaptic trace" and it allows us to keep track of the timing differences of spikes that have arrived at the post synaptic neuron; the trace will be exponentially decaying. 
+
+=== Timing Dependence ===
+
+The timing dependence, at least in SpiNNaker, is where the spike-trace processing and timing differences are commonly found. In SpiNNaker this is done in "timing_impl.h" and "timing_impl.c", but mainly in "timing_impl.h".
+The header file contains the following methods which need to implemented correctly:
+* timing_get_initial_post_trace
+	- Is used to set the initial synaptic trace
+* timing_add_post_spike
+	- add to the post synaptic trace when the post synaptic neuron fires
+* timing_add_pre_spike
+	- add to the pre synaptic trace when the pre synaptic neuron fires
+* timing_apply_pre_spike
+	- if the spike
+* timing_apply_post_spik
+
+All of which are very important.
+
+
+

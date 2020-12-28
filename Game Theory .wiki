@@ -1,0 +1,7 @@
+= Notes of Game Theory =
+
+These are notes based of Prof Adrea Shulk's notes for the course COMP34120.
+http://syllabus.cs.manchester.ac.uk/ugt/COMP34120/AndreasNotesWithPrefaceLinks.pdf
+
+== Chapters ==
+* [[Games and strategies]]

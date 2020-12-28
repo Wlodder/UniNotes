@@ -1,0 +1,30 @@
+= Mesh simplification =
+
+This the act of turning a high polygon mesh into another one with less vertices that looks the same.
+
+== Simplification by edge collapse ==
+
+What we do is basically,
+
+1) Select an edge
+2) Delete the two verticies that the edge connected
+3) Reconnect the edges
+
+If the edge was not part of the convex hull, an interior edge, then the convex hull will be kept. 
+By doing this the distribution of the edge is uniform, this mainly loses detail the more edges you remove.
+
+== Occlusion == 
+
+This is what happens when we do not have data or poor data for an area of the object and we must extrapolate to capture the object in more detail. This is true for basically all models as a single scan can basically never capture all of the detail.
+
+=== Multiple scans ===
+
+To help prevent occlusion we move the scanner or the object, whichever is easier.
+
+Now that we have two point clouds, each a scan from a different angle. How do we get one overall set of vertices. We apply a number of iterations moving a point cloud to the other point cloud until the area between the point clouds have been minimized.
+
+=== Volumetric diffusion ===
+
+THis is done by assuming that two surfaces must be connecting if they are adjacent. We convert the surfaces to a source term for a light diffusion simulation. Then based off the results from this diffusion process a surface connection is formed.
+
+(THis part doesn't make a lot of sense tbh and isn't convered directly in the lectures)

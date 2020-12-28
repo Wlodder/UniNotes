@@ -1,0 +1,18 @@
+= Grammar based modelling =
+
+* We can define objects using simple grammar production
+
+* Trace out path using commands like:
+	- F = move 1 unit forwards
+	- L = turn left through angle $\theta$
+	- R = turn right through angle $\theta$
+
+== Example of grammar-based modelling ==
+* We can apply the rule reculsivly replacing each $F$ again (suitable transformed) using the rule
+* $ F \rightarrow FLFRRFLF$
+This reproduces a fractal called the Kock curve, whose detail depends on the number recursive replacements have occured.
+
+= L-systems =
+
+* L-systems add push ( and pop ) commands, which permit more complex structures
+* Example: $ F \rightarrow F[RF]F[LF]F$ (the [] denote a separate branch)

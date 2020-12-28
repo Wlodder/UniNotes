@@ -1,0 +1,62 @@
+= Games and strategies = 
+
+The three prerequisites for game theory games:
+* A number of agents that can interact with each other - players.
+* The outcomes of their interactions are described numerically - pay-offs.
+* Clearly defined rules to what actions players can take and in which circumstances.
+
+This definition of a game may seem strong, but is actually quite a bad one. The key to describing games in an analytic sense is to use the 3rd point. The way we can study games is by treating the current state of the game as a node in a tree; referred to in the notes as "decision points".
+
+=== Examples ===
+
+a) Could you draw a game tree for Backgammon, or Snakes-and-Ladders? If not, why not?
+	- My answer, you cannot. If we are to believe that we cannot influence the toss of dice to the extent that it would become a strategy then our choices are random and we only have one decision per turn. There is also the issue that we dont interact with the other player, so it doesn't fit our definition of a game.
+b) Could you draw a game tree for rock-paper-scissors? If not, why not?
+	- You cannot since in rock-paper-scissors, there is only one turn and hence cannot be drawn as a tree.
+
+From these examples we see that we need to expand our defintion of a game tree to include the following concepts:
+* Chance, There might be situations when moves depend on chance, for example the throwing of a die, or the drawing of a card. In that case, the control over which move will be made does not entirely rest with the player whose turn it is at the time.
+* Simultaneous moves, We take care of thsoe through the same mechanism that we use to solve the following problem.
+* Imperfect information, The players may not know where exactly in the game tree they are. This often occurs in card games, where one player does not know what cards the other players hold, or when the game allows for 'hidden' moves whose consequences are not immediately clear.
+
+== Handling chance == 
+
+The accepted method for adding chance to our game is to consider somebody called "Nature" who controls all the moves that involv an element of chance. (Nature does not get a pay-off at the end). In the game tree, all we do is to add nodes:
+* where it is nobody's turn and 
+* where the branches from that node are lablled with the probability of the corresponding move occuring. 
+  
+This allows for situations with any uncertain outcome.
+
+== Handling imperfect information ==
+
+Card games in particular often involve chance as well as imperfect information, because no player knows the cards the other players hold. This information has to be built into the game tree. We do this by including the nodes a player may be cnfused about in the same 'bubble'. Thuis indicates that the player has to choose between all the nodes in the bubble withouth knowing directly which nodes they are in.
+
+
+= A Game formally = 
+
+We are finally ready to formally define a game.
+
+Definition 1. A game is given by
+* a finite set of players,
+* A tree
+* for each node of the tree, a player who owns that node
+* for each edge of the tree an action that labels it
+* for each player the corresponding information sets; these are sets of decision nodes for that player such that for every two node in some information set for Player i it is the case that 
+	- the actions taken by Player i to reach the nodes are indentical and 
+	- the actions labelling the edges out of the nodes are indentical.
+* for each leaf node and each player a pay-off.
+
+Games defined like this are often called games in extensive form in the literature. There are a few groups of games that are important enough to have their own names:
+
+a) A game is a 2-player game if there are two players (not counting nature)
+b) A game is of perfect information if all information sets in the game tree have size one
+c) A game is zero-sum if at every leaf of the game tree the sum of pay-off for all the players is 0.
+d) A game is without chance if no node in the game tree is conrtolled by Nature
+
+
+
+
+= Strategies =
+
+
+

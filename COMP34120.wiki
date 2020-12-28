@@ -1,0 +1,11 @@
+= AI and Games =
+
+The study of game theory and learning.
+
+== Lecture notes ==
+* [[Heuristics]]
+* [[Equilbria]] 
+* [[Mixed Strategies]]
+
+== Reading notes ==
+* [[Game Theory ]]

@@ -1,0 +1,188 @@
+= Analysis of the tree based implementation =
+
+== The Ackermann function ==
+
+The ackermann is one of the most famous mathematical functions devised by Wilhelm Ackermann. The thing that makes it special is that is cannot be defined using the LOOP language - it is not primitively recursive, meaning it falls outside of the Grzegorczyk hierarchy.
+We will make use of not $A$ but $\alpha$ which is the Ackermann function's functional inverse.
+
+
+The version of the Ackermann function we use is based on an indexed function, $A_{i}$, which is defined as follows, for integers $x>=0$ and $i>0$:
+
+{{$
+A_{0}(x)=x+1
+}}$
+
+{{$
+A_{i+1}(x)=A_{i}^{(x)}(x)
+}}$
+
+where $f^{(k)}$ denotes the k-fold composition of the function $f$ with itself. That is, 
+
+{{$
+f^{(0)}(x)=x
+}}$
+
+{{$
+f^{(k)}(x)=f(f(^{(k-1)}(x)))
+}}$
+
+So, in other words, $A_{i+1}(x)$ involves making $x$ applications of $A_{i}$ function on itself, starting with $x$. THis indexed function actually defines a progression of functions, with each function growing much faster than previous one:
+
+* $A_{0}(x) = x+1$, which is the increment-by-one function
+* $A_{1}(x) = 2x$, which is the multiply-by-two function
+* $A_{2}(x)=x2^{x} >= 2^{x}$, which is the power-of-two function
+* $A_{3}(x)=2^{2^{.^{.^{.^{2}}}}}$ (wit $x$ number of 2's), which is the tower-of-twos function - sometimes referred to as a tetration.
+* $A_{4}(x)$ is greater than or equal to the tower-of-tower-of twos function
+* and so on.
+
+We then define the Ackermann function as 
+
+{{$
+\mathcal{A}(x)=A_{x}(2)
+}}$
+
+Which grows very fast. Likewise the inverse,
+
+{{$
+\alpha (n) = min \{ x : \mathcal{A} (x) >= x \}
+}}$
+
+Grows very slow, for all practical purposes, $\alpha (n) <= 4$.
+
+
+
+== An amortized analysis ==
+
+Let us use an amortization argument to analyze the running time of a sequence,  $\sigma$, of $m$ union and find operations on a partition that initially consists of n single-element sets.
+
+Let $U$ be the tree defined by all the union operations in $\sigma$ without our having performed any path compressions. For each node $v$, let $n(v)$ denote the number of nodes in the subtree of $U$ rooted at $v$, and define the rank of $v$, which we denote as $r(v)$ as follows:
+
+{{$
+r(v) = \lfloor log~n(v) \rfloor + 2
+}}$
+
+Thusm,we immediately get that $n(v) >= 2^{r(v)-2}$ - just the above equation rearranged. Also, since there are at most $n$ nodes in $U,~r(v)<= \lfloor log~n~ \rfloor + 2$ ,for each node $v$.
+
+If node $w$ is the parent node of $v$, then 
+{{$
+r(v) < r(w)
+}}$
+
+
+{{$%align%
+r(v) &  = \lfloor log~n(v) \rfloor + 2 \\
+& < \lfloor log~n(v) + 1 \rfloor + 2 \\
+& = \lfloor log~2n(v) \rfloor + 2 \\
+& <= \lfloor log(n(v)+n(w)) \rfloor + 2
+& = \lfloor log ~n'(w) \rfloor + 2
+& <= r(w)
+}}$
+
+Put another way, this theorem states that ranks are strictly increasing as we follor parent pointers up the union tree. It also implies the following:
+
+{{$%align%
+\text{the number of nodes of rank }s, 0<=s<= \lfloor log~n \rfloor + 2, \text{ is at most } \\
+\frac{n}{2^{s-2}}
+}}$
+
+Proof: By the previous theorem $r(v) < r(w) $, for any node $v$ with parent $w$, and ranks are strictly increasing as we follow parent pointers up any tree. Thus, if $r(v) = r(w) $  for two nodes $v$ and $w$m then nodes counter in $n(v)$ must be separate and distinct from the nodes counted in $n(w)$. By the definition of rank, if a node $v$ is of rank $s$, then $n(v)>=2^{s-2}$. Therefore, since there are at most $n$ nodes total, there can be at most $n/2^{s-2}$ that are of rank $s$.
+
+Let us now consider the time it takes to perform the $m$ union and find operations in the sequence $\sigma$. In particular, let us develop an amortized analysis, assuming that is takes 1 cyber-dollar to perform $O(1)$ amount of work during our performance of $\sigma$. We have already observed that performing a union takes $O(1)$ time. We therefore charge each union operation 1 cyber-dollar to pay for this. This implies that the total charges to all union operations is $O(n)$, since there can be at most $n-1$ operations in all.
+
+
+=== Analysing path compression ===
+
+To characterize the perfrmance of the other operations in $\sigma$, let us therefore consider how path compression affects the performance of find operations. As we perform path compressions, for each node $v$, we may be changing the parent, $p(v)$, of $v$. Note that every time we change $p(v)$ during the execution of $\sigma$, we increase the value of $r(p(v))$, the rank of $v$'s parent.
+
+For the sake of our amortized analysis, let us define a labelling function, $L(v)$, for each node $v$, which changes over the course of the execution of the operations in $\sigma$. In particular, at each step $t$ in the sequence $\sigma$, define $L(v)$ as follows:
+
+{{$
+L(v) = \text{the largest } i \text{ for which } r(p(v)) >= A_{i}(r(v))
+}}$
+
+because ranks are strictly increasing as we go up the tree $U$. Also, for $n>=5$, the maximum value for $L(v)$ is $\alpha (n)-1$, since, if $L(v) = i$, then 
+
+{{$%align%
+n&>& \lfloor log~n \rfloor + 2 \\
+& >= & r(p(v)) \\
+& >= & A_{i} (r(v)) \\
+& >= & A_{i}(2)
+}}$
+
+Or, put another way.
+
+{{$
+L(v) < \alpha (n)
+}}$
+
+for all $v$ and $t$.
+
+The main computational task in performing a find operation is in following parent pointers along a path, $P$, from some node $u$ up to the root, $z$, of the tree containing $u$ at time $t$. We can accound for all of this work by paying 1 cyber-dollar for each parent pointer we traverse. Let $v$ be some node along $P$. We use two rules for charging a cyber-dollar for following the parent pointer for $v$:
+
+* if $v$ has an acestor $w$ in $P$ such that $L(v)=L(w)$, at this point in time, then we charge 1 cyber-dollar to $b$ itself.
+* If $v$ has no such ancestor, then we charge 1 cyber-dollar to this find operation.
+
+Thus, the maximum number of cyber-dollars any find can get charged is bounded by the number of distinct $L(v)$ values for nodes on the path $P$, which is less than $\alpha (n)$,  as we observed above. The total number of cyber-dollars charged to all the find operations is therefore $O(m~\alpha (v))$.
+
+Let us next consider all the charges that are made to a vertex $v$ over the course of performing the find operations in $\sigma$. For such a charge to occur at time $t$, then $v$ must have an ancestor $w$ such that $L(v) = L(w) = i$, for some $i$. So, at time $t$.
+
+{{$
+r(p(v)) >= A_{i} (r(v))
+}}$ 
+
+and 
+
+{{$
+r(p(w)) >= A_{i} (r(w))
+}}$
+
+Suppose, in particular, that 
+
+{{$
+r(p(v)) >= A_{i}^{(k)} (r(v))
+}}$
+
+where $k>=1$. Recall that $z$ denotes the last vertex n the path $P$. Then at time $t$,
+
+{{$%align%
+
+r(z) & >= & r(p(w)) \\
+& >= & A_{i} (r(w)) \\
+& >= & A_{i} (r(p(v))) \\
+& >= & A_{i} ( A_{i}^{(k)} (r(v))) \\
+& >= & A_{i}^{(k+1)} (r(v))
+}}$
+
+Therefore, since $z$ becomes the new parent of $v$ at time  $t+1$,  because of path compression, we have at time $t+1$.
+
+{{$
+r(p(v)) >= A_{i}^{(k+1)}(r(v))
+}}$
+
+This implies that at most $r(v)$ charges can be made to $v$ before
+
+{{$%align%
+r(p(v)) & >= & A_{i}^{(r(v))}(r(v)) \\
+& = & A_{(i+1)}(r(v))
+}}$
+
+at which point $L(v) = i+1$. Thus, after at most $r(v)$ cuber-dollar sare charged against $v$, $L(v)$ increases by at least 1. Since $L(v)$ can increase at most $\alpha  (n)-1$ times ,this means that there can be at most $r(v)$ times $\alpha (n)$ cyber-dollars charged to $v$ in total. There are at most 
+
+{{$
+s * \alpha (n) * \frac{n}{2^{s-2}} = n * \alpha (n) * \frac{s}{2^{s-2}}
+}}$
+
+cyber-dollars charged to all the vertices of rank $s$. Summing ove all possible ranks, the total number of cyber-dolalars charged to all thendes is at most 
+
+{{$%align%
+\sum_{s=0}^{\lfloor log~n \rfloor + 2} n * \alpha (n) \frac{s}{2^{s-2}} & <= & \sum_{s=0}^{\inf} n * \alpha (n) \frac{s}{2^{s-2}} \\
+& = & n * \alpha (n) * \sum_{s=0}^{\inf} \frac{s}{2^{s-2}} \\
+& <= & 8 * n * \alpha (n)
+}}$
+
+by a well-known summation bound. That is the total charges made to all nodes is $O(n \alpha (n))$ ,which gives us the following :
+
+
+In a sequence $\sigma$ of $m$ union and find operations performed using union-by-size and path compression, starting with a collectin of $n$ single-element sets, the total time to prform the operations in $\sigma$ is $O((n+m) \alpha(m))$
+
+

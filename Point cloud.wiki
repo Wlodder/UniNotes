@@ -1,0 +1,29 @@
+= Point clouds =
+
+Point clouds to polygons. Here we talk about turning point scans, which produce many verticies, and then triangulating it. By doing with we can essentially connect up the verticies, applying texture on the polygons generating; the xbox Kinect also does this since it remains stationary. 	
+
+== How do we triangulate ==
+
+Whenever we add point to a mesh, we must choose which vertices to connect. 
+
+=== What makes a good triangulation? ===
+
+We need to generate some criteria to determine whether as mesh is a good approxiamtion.
+
+* Regularity : roughly similar-size triangles
+* No degenrate triangles where v1 = v2 = (v3)
+* Speed of triangulation algoriothm (time/space complexity)
+
+== Delaunay triangulation ==
+
+The convex hull problem. The smallest subset of points whose area contains all the points in the set.
+
+=== Properties of Delaunay triangulation ===
+
+1) The boundary of the triangulation is the convex hull of the points; every line of the convex hull is one line of the triangle
+2) A circumcircle of points has at most one triangle inside.
+3) All of triangle have the largest possible interior angles
+4) Every edge is a delaunay edge
+
+An edge $P_1, P_2 $ is a Delaunay edge IFF it is possible to draw a circle through $P_1, P_2$ such that the circle contains no other vertices from P.
+A Delaunay triangle is a triangle whose circumcircle does not include any other points from the set, the triangle must have all three points of the triangle on the circumference of the triangle.

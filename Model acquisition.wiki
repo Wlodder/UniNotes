@@ -1,0 +1,45 @@
+= Model Acquisition =
+
+This originally done by hand. We decide where on the object we want to put the polygon. We do this for every vertex and eventually there will be model. There are a few issues with this:
+* Lack of detail
+* limited points of acquisition
+* model must stay still
+
+This is not just limited to human faces, all objects lose detail when transfered by hand. The fundamental problem is the sheer number of polygons the natural world requires in order for it be accurate.
+
+Here are some examples of modelling:
+
+* interactively - Sketchup
+* Algorithmically - producing a more accurate models
+* CAD systems - Autodesk: lots of symetry involved
+	- extrude and profile
+	- lofting: define a set of key profiles along an arbitrary 3d path, and interpolate between them
+* Generative Modelling:
+	- Fractal modelling
+	- Grammar-based-systems
+	- Particle systems
+
+== Acquiring models directly ==
+
+How can we look at a scene and represent it geometrically?
+
+There are some difficulties with representing some objects:
+* Ambiguous geometry - See Escher paintings, optical illusions
+* Ambiguous colours - Blue/Gold dress; apparent colour is product of reflectivity and illuminant and sensitivity
+
+
+=== A perceptive approach ===
+
+* Humans 'acquire 3D models' all the time
+* ... without any conscious thought processes
+
+* One attempt to describe what is happening is the Active Vision theory
+	- iterative process
+	- converges on a 'solution'
+	- see COMP37212 Computer Vision
+
+=== Wholly automatic active vision ===
+
+* Current acquisition systems follow the generel principles of Active Vision modelling
+* No current automatic system can perform perfectly 
+* With some additional manual intervention, very good results can be achieve.

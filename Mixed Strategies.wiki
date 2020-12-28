@@ -1,0 +1,91 @@
+= Mixed Strategies =
+
+A mixed strategy is a strategy which involves a probabilistic approach with pure strategies.
+We can play in both normal form (tableau) and in extensive form (tree), assigning a probability function for each choice that sum to one.
+
+=== Celebrated theorems ===
+
+John von Neumann (1928) : von Neumann showed that every zero-sum game with perfect informatin has solutins which minimise the maximum lsses for the players, but mixed strategies may be required von Neumann invented game theory as a mathematical discipline.
+
+Nash (1950) : Every game with a finite number of players in which each player has a finite number of pure strategies has at last ne Nash equilbrium. Some will involve mixed strategies. 
+
+
+== When mixed strategies are needed ==
+
+Mixed strategies can be required when there is hidden information:
+* Extensive form games with hidden information (e.g. poker)
+* Normal frm games always have hidden information (the hidden strategy of the opponents)
+
+
+= The simplest example =
+
+* Two brothers Donald (older) and Eric ( younger) go to the same high school
+* There are two cafes in the school: Red and Blue where they lunch every day.
+* Donald wants to be in a different cafe then little brother
+* but Eric always wants to be near big brother.
+
+
+|      | Red     | Blue    |
+|------|---------|---------|
+| Red  | (-1,1)  | (1,-1)  |
+| Blue | (1, -1) | (-1, 1) |
+
+Each chooses the lunch spot probabilistically.
+
+Donald chooses Red with probability $x$, therefore choosing Blue with probability $1 - x$.
+Eric chooses Red with probability $y$, likewise the same as Donald's choice for blue: $1-y$ .
+
+
+* Since the strategies are probabilistic, so are the payoffs.
+* S we need the expected payoffs.
+* Let $U_1 (S_1 , S_2 ) $ is the payoff to Player 1 for a given set of pure strategies, $( S_1 , S_2)$
+* Expected payoff is $Ex \[ U_1 (S_1, S_2 ) \] $.
+
+== Optimising Donald's decision ==
+
+
+If Eric always goes to Red cafe:
+
+{{$%align%
+
+Exc \[ U_{1} (s_{1} (x) , Red ) \] & = (-1) x + (1) ( 1 - x) \\
+& 1 - 2 x 
+
+}}$
+
+If Eric always goes to Blue cafe:
+
+{{$%align%
+
+Ex \[ U_{1} ( S_{1} (x), Blue ) \] & = (1) x - (-1) (1 - x) \\
+& 2 x - 1
+}}$
+
+*Task*: find the value of $x$ such that:
+
+{{$%align%
+
+Ex \[ U_{1} ( S_{1} (x), Red) \] & = Ex \[ U_{1} ( S_{1} ( x ) , Blue ) \] 
+}}$
+
+
+== Why must the expected payffs be equal ? ==
+
+If they are not equal then :
+* Eric will have a pure strategy best response
+* Then Donald's best respnse will be a pure strategy 
+* But there is no pure stategy Nash equilibrium!
+
+=== Interesting property of the solution === 
+
+A common feature of mixed strategy Nash equilibria
+
+1) If one player plays its component of the mixed Nash equilibrium, the payoff is indifferetn to what the other player does.
+2) The other player must also play its component of the Nash equilibrium to force the first player to play its cmpoonent and not take advantage.
+
+
+== Key ideas == 
+
+* Introduce probabilities over pure strategies
+* Set the expected payoffs against each opponents's pure strategy to be equal to find the value of the probabilites
+* With 2-action, 2-player gamnes, Nash equilibria can be found graphically.

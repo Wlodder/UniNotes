@@ -1,0 +1,18 @@
+= Equilibria =
+
+=== Terms ===
+
+* Best response strategy
+	- A best response strategy is the strategy for a given player which yield the highest payoff to that player given the strategies of al the other players.
+* Nash Equilibrium
+	- A strategy prfile $( s^{*}_{1} , s^{*}_{2}, ..., s_{k}^{*})$ for a game with k players, is a Nash equilibrium if each strategy is a best response to all of the others.
+	- It is not a strategy; it is a choice of strategy for all players in the game
+	- It the players are playing the Nash, no player has any incentive to change its strategy unilaterally
+
+
+* Only for a speciall class of games do strategies which beat all opponents always exist (two-player, zero-sum, perfect informatin, no chance)
+* A Nash equilibrium is a collection of strategies for all players such that each player is playing best response to all the others.
+* For a zero-sum, two-player game in normal form , a strategy pair which is maximal in its columns and minimal in its rows is a Nash equilibrium.
+* Dominance can be used to reduce the number of strategies
+* Nash equilibria als exist in general-sum games.
+

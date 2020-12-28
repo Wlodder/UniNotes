@@ -1,0 +1,27 @@
+= Generative Modelling = 
+
+Generate something and then render it later.
+
+=== Why polygons fail ===
+
+We make polygons and then shade them in later, and this works for the most part - looks pretty good, but not everything is a polygon in a natural setting. Waterfalls and a lot of natural phenomena are not easy to render using polygons.
+
+== Fractal Geometry ==
+
+A fractal is a shape that has a certain amount of self similarity at different scales of viewing the pattern. Smaller pieces of brocolli look like zoomed in images of larger pieces of brocolli.
+
+=== How long is a coastline? ===
+
+Really we should ask our selves how long is the unit of measurement we are using. Using a smaller unit we can get a more accurate representation of the coast line but we need more units to get the length. 
+
+* Answer: it depends what ruler you use.
+
+== Modelling fractal curves ==
+
+* How can we model such curves?
+* One approach is recurise subdivision
+	- Take mid-point of line, displace it randomly
+	- Replace first line with two new lines
+	- Repeat recursively until required level of detail
+
+This can be done in any number of dimensions.

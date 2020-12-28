@@ -1,0 +1,25 @@
+= 3rd Year Project =
+
+The Title of the project is 'Image classification via brain-like learning in neural networks' under the supervision of Oliver Rhodes
+Sections covered in this wiki are based off personal notes taken during the development and research of the topic.
+The bulk of the project is based off 'Unsupervised learning of digit recognition using spike-timing-dependent plasicity' by Peter U.Diehl and Matthew Cook (https://www.frontiersin.org/articles/10.3389/fncom.2015.00099/full#h3).
+Whilst a majority of the research was done using the book 'Neuronal Dynamics' by Wulfram Gerstner, Werner M. Kistler, Richard Naud and Liam Paninski (https://neuronaldynamics.epfl.ch/online/index.html). 
+The implementation's main sources are the SpiNNaker workshops and various tutorials on PyNN, check the SpiNNaker github pages and website for the most update tutorials.
+
+== Research ==
+* [[Neuronal models]]
+* [[Plasiticity]]
+* Cognitive Architectures
+* Other Ideas
+* References:
+	- LCA (locally competitive algorithms) https://www.ece.rice.edu/~eld1/papers/Rozell08.pdf
+	- Spare Coding by Spiking Neural Network https://www.laas.fr/public/sites/www.laas.fr.public/files/general/theme-DO/pdf/19-PTang.pdf https://arxiv.org/pdf/1705.05475.pdf
+	- Unsupervised Dictionary Learning via a Spiking Competitive Algorithm https://permalink.lanl.gov/object/tr?what=info:lanl-repo/lareport/LA-UR-18-31520 
+	- Sparse Coding Using the Locally Competive Algorithm on the TrueNorth Neurosynaptic System https://www.frontiersin.org/articles/10.3389/fnins.2019.00754/full#B27
+	- Dictionary Learning by Dynamical Neural Networks https://arxiv.org/pdf/1805.08952.pdf 
+
+== Implementation == 
+* SpiNNaker setup
+* Neuron model
+* STDP models
+* 

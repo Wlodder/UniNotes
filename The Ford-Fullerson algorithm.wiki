@@ -1,0 +1,26 @@
+= Ford-Fullerson = 
+
+The idea of this algorithm is to use an "auxiliary directed graph".
+
+Let $ N = (V,E,s,t,c) $ be a flow network and $f$ a flow for $N$.
+
+The auxiiliary directed graph $N_{f}$ is $G=(V,E_{f})$,  where $E_{f}$ is the set of pairs:
+
+{{$
+ \{ (u,v) \in E | f(u,v) < c(u,v) \} \cup \{ (u,v) | (v,u) \in E ~and~ f(v,u) > 0 \}
+ }}$
+ 
+See video for the algorithm.
+
+
+=== lemma ===
+
+Let $N = (V,E,s,t,c)$ be a flow network and $f$ a flow in $N$. Then there is a path in $N_{f}$ from $s$ to $t$ if and only if $f$ is not optimal.
+
+
+=== proof ===
+
+The only-if direction is trivial. Supposem conversly, there is no path from $s$ to $t$ in $N_{f}$. Let $S$ be the set of nodes $V$ reachable from $s$ in $N_{f}$ and $T=V\\S$
+
+
+There is no backflow from $T$ to $S$, and no spare capacity from $S$ to $T$.

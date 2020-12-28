@@ -1,0 +1,45 @@
+= The Machine Stops = 
+
+Does there exist an algorithm/ first order logic structure that is always true?
+
+Obviously we can.
+
+Is there an algorithm to determine whether a logical formula is true?
+
+
+The Entscheidung's problem, decision problem, is one of the fundamental problems of computation.
+
+Proving whether a problem can never be solved by an algorithm.
+
+This leads to a phenomenon called  'undecidable' problems, we can't tell if they'll be true in the future.
+
+== Multi-tape Turing Machine ==
+
+This is simply a multiple state turing machine controlled but a central processor (control unit).
+
+
+Formally, A turing machine is a quintuple:
+
+{{$
+M=(K, \Sigma, Q, q_0, T).
+}}$
+
+Where
+* $K >= 2$ (number of tapes)
+* $ \Sigma $ is a non-empty, finite set (alphabet)
+* $Q$ is a non-empty, finite set ( set of states)
+* $ q_0 \in Q$ (initial state)
+* $T$ is a set of tranisitions (for $K, \Sigma ~and~ Q$) 
+  
+  
+* A symbol is an element of $ \Sigma \cup \{ blank, start \} $
+	- We denote the set of finite strings of $\Sigma ~and~ \Sigma *$
+
+* A transition on the turing machine is:
+
+{{$
+(p, \sbar, q, \tbar, \dbar)
+}}$
+
+where 
+*

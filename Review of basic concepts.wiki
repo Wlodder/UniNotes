@@ -1,0 +1,38 @@
+= Review of Basic Concepts =
+
+* A directed graph is a pair, $ G = (V,E) $, where V is a finite, non-empty set (verticies) and E (edges) a set of ordered (directed) pairs of distinct elements of V.
+* If $ e = (u,v) \in E $ is an edge, then u and v are neighbours.
+* Directed graphs have:
+	- No self loops
+	- No multiple edges
+	- No directionless edges
+* The in-degree of a vertex is the number of incoming edges similary for the out-degree.
+* For us directed graphs are stored as adjacency lists due the potentially asymmetric nature of edges.
+* A path is a directed graph is a sequence of distinct vertices such that there is an edge between every vertex
+* If $ G = (V,E) $ is a directed graph and $ s,t \in V $, we say that t is reachable from s if there exists a path $ s = u_{0},...,u_{k} = t $ from s to t.
+* A directed graph is strongled connected if every vertex is reachable from every other.
+
+These are both examples of decision problems:
+
+st-CON
+Given: A directed graph $ G = (V,E) $ and vertices $ s,t \in V$.
+Return: Yes if t is reachable from s in G, No otherwise.
+
+STRONG CONNECTIVITY
+Given: A directed graph $ G = (V,E) $
+Return: Yes, if G is strongly connected, No otherwise.
+
+Determining strong connectivity in linear time can be done use DFS. 
+We know that DFS has the complextiy of $ O(n + m) $ where n is the number of vertices and m the number of edges.
+Hence we can determine also if two components (vertices) are strongly connected if DFS returns a "Yes" as its output provided it is framed as a decision problems.
+In order to frame this as a strong connectivity problem by simplying adding two additional requirements:
+* $ \forall s \in V ,\exists u_{i},~~such~that~u_{i}(s,t_{i})~for~0~<=~i~<= n $
+* $ \forall t \in V ,\exists u,~~such~that~u(t, s) $
+
+This states that in order for an entire graph to be strongly connected, choose any vertex as a starting vertex
+then perform DFS on every other vertex of the graph. If any vertex is unreachable G is not strongly connected and stop.
+Likewise perform DFS from every other node back to the start node. If every node has a path back to the home node then the graph is strongly connected. Due to transitivity of paths hence every node can reach every node.
+This is done in:
+{{$
+O( 2 * (n - 1) * O(DFS))~=~O( 2 * (n - 1) * (n + m) ) 
+}}$

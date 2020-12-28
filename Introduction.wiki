@@ -1,0 +1,67 @@
+= Introduction =
+
+What is a compiler?
+
+* A program that accepts as input a program text in a certain language and produces as output a program text in another language, while preserving the meaning of that text
+
+Examples:
+* C
+* Lisp
+* Java to bytecodes, which are then interpreted
+
+Also:
+* C++ to C or Intel Core 2
+* High Performance Fortran to Fortran
+* C to C
+
+In the general sense:
+* What is LaTeX?
+* What is ghostview?
+
+Compilers dont always produce executables
+
+== Qualities of a Good Compiler ==
+
+What qualities would you want in a compiler?
+
+* generates correct code
+* generates fast code
+* conforms to the specifications of the input language
+* copes with essentially arbitrary input size, variables
+* compiltion time proprtional to size of source
+* good diagnostics
+* consistent optimisations 
+* works well with debugger
+
+=== Principles of Compilation ===
+The compiler must:
+* preserve the meaning of the program being compiled.
+* "imprve" the source code in some way e.g. readability, optimization.
+
+Other issues:
+* Speed (of compield code)
+* Space (size of compiled code)
+* Feedback (infrmation provided to the user)
+* Debugging 
+* Compilation time efficiency
+
+
+== Why study Compilatino Technology? ==
+
+* Success stories
+	- Applying theory to practice
+	- Many practical applications have embedded languages
+* Practical algorthmic & engineering issues:
+	- Approximating really hard problems
+	- Emphasis on efficiency and scalability
+	- Small issues can be important!
+* Ideas from different parts of computer science are involved:
+	- AI: Heuristic search techniques; greedy algorithms - Algorithms; graph algorithms - Theory: pattern matching- Also: Systems, Architecture
+* Compiler construction is fun and challenging
+
+Key: Ablilty to extract properties of a source program (analysis) and transform it to construct a target program (synthesis)
+
+== Summary ==
+
+* A compiler is a program that converts some input text in source language to outoput in a target language.
+* Compiler cnstruction poses some of the most challenging problems in computer science 

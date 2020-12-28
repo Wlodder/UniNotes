@@ -1,0 +1,44 @@
+= General Structure of a Compiler = 
+
+{{$
+\text{Source code}\rightarrow\text{Front-End}\rightarrow\text{Intermediate Representation}\rightarrow\text{Back-End}\rightarrow\text{Target code}
+}}$
+
+* Front-end performs the analysis of the source language:
+	- Recognises legal and illegal programs and reports errors.
+	- "understands" the input program and collects its semantics in an IR
+	- Produces IR an dshape the code fro the back-end.
+	- Much can be automated
+* Back-end the target language synthesis
+	- Chooses instructions to implement each IR operation.
+
+Using different Front-ends(m) and different back-ends(n) gives us $ m x n $ compilers $ m + n $, very efficient.
+
+* All languages specific knowledge must be encoded in the front-end
+* All target specific knowledge must be encoded in the back-end
+
+== Structure of the compiler ==
+=== Front-end ===
+1) Source
+2) Lexical analysis
+3) Syntax Analysis
+4) Abstract Syntax Tree
+5) Annotated AST
+
+=== I.R ===
+6) I.R.
+
+=== Back-end ===
+7) I.C Optimisation 
+8) Code Generation
+9) Target code Optimisation
+10) Target code Generation
+
+== Lexical Analysis (Scanning) ==
+* Reads characters in the source program and groups them into words (basic unit of syntax)
+* Produces words and recognises what sort they are
+* The output is called token and is a pair of the form <type,lexeme> or <token_class, attribute>
+* E.g. $ a=b+c $ becomes <id,a> <=,> <id,b> <+,> <id,c>
+* Needs to record each id attribute: keep symbol table
+* Lexical analysis eliminates white space, etc...
+* Speed is important - use a specialised tool :e.g., flex - a tool for generating scanners: programs which recognise lexical pattern in text; for more info: % man flex

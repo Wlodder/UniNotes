@@ -1,0 +1,71 @@
+= Heuristics =
+
+* A* algorithms an importatn algorithm is an artificial intelligence.
+* Dijkstra's algorithm
+* Greedy heuristic
+
+== What is a heuristic ? ==
+
+* Rules which are applied becuase they are found to have worked.
+* By trial and error
+
+We can abstract a state space as weighted graphs. So think of it like a tree of alternate realities.
+* Nodes : represent the states of the puzzle.
+* Edges : An edge from noeds i to j represent a direct move from state i to state j.
+* Weights : c(i,j) represents positive distances (time or costs) associated with the move from i to j.
+
+== Dijkstra's algorithm ==
+
+* Finds the shortest path from source to all other nodes in graph.
+* Searches nodes nearest to source node first (priority queue)
+* When a node is popped from the priority queue, the shortest path to it has been found.
+* The algorithm is complete
+* Finds the shortest path
+
+How would a human sovle these problems?
+
+* Move to the available state x seemingly "closest to the goal"
+* Requires a "heuristic" function:
+
+{{$
+	h(x)=\text{estimated distance from node x to the goal}
+	
+}}$
+* Repeatedly move to the availabe node x' connected to state x with the lowest value of h(x')
+
+== Greedy heuristic search == 
+* Uses a heuristic h(x) approximation for the distnace to the goal
+* Not complete - will not necessarily find a path
+* Does not necessarily find the optimal path
+* Fast
+* Informed 
+* can be complete with backtracking
+
+== A* algorithm ==
+
+A* algorthim combines the two algorithms.
+* g(x) the distance from the source s to the node x
+	-  The distance from dijkstra's to the node
+* h(x) the distance from the node x to the target node
+	- The heuristic's distance
+
+A* algorithm is dijkstra's but instead the weights we use are:
+g(x) + h(x) as the weight.
+  
+  
+== what makes a good heuristic ==
+* admissible
+	- The distance from all nodes to the goal is less than the true shortest distance
+	- i.e. h underestimates the distnace to the goal
+	- h(x) should be optimistic
+* monotonic - obey's the triangle inequality
+	- A heuristic is called monotonic or consistnent if for all children y of x. $ h(x) <= c(x,y) + h(y) $
+* informative - as close to the true distance without exceeding it
+	- h(x) is the true shortest distance to the goal.
+
+== Can we apply these ideas to games? == 
+
+No!, But, ...
+* The heuristic h(x) is a "state evaluation" function.
+* In games, we use board evaluation functions.
+But the search algorithms must be modified (to take into account the other players - potentially negative)

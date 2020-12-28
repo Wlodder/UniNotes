@@ -1,0 +1,14 @@
+= Advanced Algorithms =
+
+This course is the advanced algorithms course from the university of manchester. The course details additional graphics processing methods as well as new lighting systems followed by a Mini-Project of a handcrafted particle system.
+
+=== Tim's lectures ===
+
+* [[Generative Modelling ]]
+* [[Grammar based modelling]]
+* [[Particle Systems]]
+* [[Model acquisition]]
+	- [[Laser Scanning]]
+	- [[Point cloud]]
+* [[Mess simplification]]
+* [[Geometry from images]]

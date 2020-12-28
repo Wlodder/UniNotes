@@ -1,0 +1,43 @@
+= Lexical Analysis (Scanning) =
+
+* Reads character in the source program and groups them into words (basic unit of syntax)
+* Produces words and recognises what sort they are.
+* The output is called token and is a pair of the form <type,lexeme> or <token_class, attribute>
+* E.g. $ a=b+c $ becomes <id, a> <=,> <id,b> <+,> <id,c>
+* Needs to record each id attribute: 
+
+In natural languages, mapping words to part of speech is idiosyncratic.
+
+In formal languages, mapping words to part of speech is syntatic.
+* based on denotation
+* makes this a matter of syntax
+* reserved keywords are important
+
+=== Some definitions ===
+
+* A vocabulary (alphabet) is a finite set of symbols
+* A string is any finite sequence of symbols from vocabulary
+* A language is any set of strings over a fixed vocabulary.
+* A grammar is a finite way of describing a language.
+* A context-free grammar, $G$ is a 4-tuple, $G=(S,N,T,P)$, where:
+	- $S$: starting symbol
+	- $N$: set of non-terminal symbols
+	- $T$: set of terminal symbols
+	- $P$: set of production rules
+* A language is the set of all terminal production of $G$
+
+== Why all this? ==
+
+* Why study lexical analysis?
+	- To avoid writing lexical analysers by hand
+	- To simplify specification and implementation
+	- To understand the underlying techniques and technologies
+* We want to specify lexical patterns (to derive tokens):
+	- Some parts are easy:
+		* $WhiteSpace \rightarrow blank~|~tab~|~WhiteSpace~blank~|~WhiteSpace~tab$
+		* Keywords and operators (if, then ,=, +)
+		* Comments (/* followed by */ in C, // in C++, % in latex ...)
+	- Some parts are more complex 
+	  	* Identifiers (letter followed by - up to n - alphanumerics ...)
+		* Numbers
+

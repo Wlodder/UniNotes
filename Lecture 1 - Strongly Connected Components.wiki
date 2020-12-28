@@ -1,0 +1,7 @@
+= Strongly Connected Components =
+
+These are concerned with directed graphs which are used to solve particulay issues.
+
+* [[Review of basic concepts]]
+* [[Topological sort]]
+* [[Tarjan's algorithm]]

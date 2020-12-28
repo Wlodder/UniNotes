@@ -1,0 +1,74 @@
+= Particle Systems =
+
+* Some phenmena are naturally modelled as a set of dynamic particles
+* Examples: water, clouds, fire.
+
+Each particle has a set of properties which change over time:
+* size, shape colour, opacity
+* positin, velocity, acceleration
+* age, lifetime
+
+=== example: simple explosion model ===
+a = explosion area
+c = centre of explosion
+e = maximum ejection angle
+
+* For some property P of the particle, we cmpute its initial value using 
+  	- $P_{initial}=P_{mean} + (Random()*P_{variance})$ ( basically a distribution)
+
+=== Computing particle position ===
+
+We normally use rules based of Newton's laws of motion
+
+* Compute position of particle at time $t$ using standard equations of motion
+* Or ... of course could use any algorithm
+
+{{$
+x_{p} = v_{p}*t*cos*\beta_{p} 
+}}$
+{{$
+y_{p} = v_{p}*t*sin*\beta_{p} - \frac{1}{2}gt^{2} 
+}}$
+
+* Also bounces...
+* (is $y = y_{ground}$)
+* If yes, reset particle position, and damp new velocity.
+
+== Efficiency and scalability (see coursework) ==
+
+{{$
+v_{t_{i+1}} = v_{t_{i}} + a*\Delta t
+}}$
+and
+{{$
+x_{t_{i+1}}=x_{t_{i}} + v * \Delta t
+}}$
+
+
+{{$
+x_{t_{i+1}} = 2 * x_{t_{i}} - x_{t_{i-1}} + a * (\Delta t)^{2} 
+}}$
+
+=== Particle system algorithm ===
+
+$ \text{For each frame of animation } $
+
+$\quad \text{Remove any particles past their lifetime} $
+$\quad \text{Create new particles and initialise them} $
+$\quad \text{Update attributes for each particle} $
+$\quad \quad \text{Position:}$
+$\quad \quad \quad\text{ Detect collisions of particles with environment} $
+$\quad \quad \quad \text{inter-particle collisions }$
+$\quad \quad \text{Colour, acceleration, etc}$
+$\quad \text{Render current particles }$
+
+== Rending ideas ==
+
+* Point based:
+	- Space is quantized (in pixels) distribute the particle based off overlap with pixels, anti-aliasing.
+* Line based:
+	- render the particle's trajectory 
+* Distribution based:
+	- let the particles location be the location of a gaussian distribution and render from there
+* Alpha textured quad:
+	- make it transparent, always aligned to face the viewer, think games like wolfenstein.

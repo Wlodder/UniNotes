@@ -1,0 +1,129 @@
+= Union find =
+
+Here we learn about a fundamental algorithm on undirected graphs.
+
+Undirected graphs is a graph in the general sense where there is a single edge between two verticies and it can be traversed in both directions. In an adjacency matrix a undirected graph is also symmetric.
+
+The notion for a path and connectivity is the same as with the directed graph.
+
+A connected copmonent of a grpah is a maximal set of vertices each of which is reachable from any other.
+
+Union find finds the sets of connected components of a graph.
+
+== The algorithm ==
+
+* Let $G=(V,E)$ be a graph.
+* A partition of $V$ is a collectin of sets $\{A_{1},...,A_{m}\}$
+	- $ A_{1} \cup ... \cup A_{m} = V$
+	- $A_{i} \cap A_{j} \text{for all i, j, } (1<=i<j<=m)$
+	- $A_{i} != \null \text{for all i }(1<=i<=m) $
+* We refer to the elements of a partition (sets of vertices) as cells
+
+Basically like cutting up a cake.
+
+=== Helpful functions ===
+* makeSet(v) - given a (pointer to) vertex V, add the singleton {v} to P.
+* union($A_{i},A_{j}$) - given (pointers to) the cells $A_{i}~and~A_{j}$, remove these from P, and add the cell $A_{i} \cup \A_{j}$
+* find(v) - given a (pointer to) vertex $v_{i}$ return (a pointer to) the cell of P containing v.
+
+$union-find(V,E)$
+$\quad$ let $P=\null$
+$\quad$ for $v \in V$
+$\quad \quad$makeSet$(v)$
+$\quad$for$(u,v)\inE$
+$\quad \quad$if $find(u)!=find(v)$
+$\quad \quad \quad union(find(u),find(v))$
+
+A walkthrough:
+
+P will contain the partitions of the graph. We will begin by turning every single vertex into a singleton set, then for every edge if the edge is connected to two different verticies in different sets, we merge the sets.
+The total runtime of the algorithm:
+$ union-find \in O(n^{2}) $
+
+For the helper functions:
+
+$makeSet(v)$
+
+$\quads =\[ v \] \text{       Create a new list}$
+
+$\quad v \rightarrow cell=s$
+
+$\quad add~s~to~P$
+
+We presume each vertex contains a pointer to the set (s, a list).
+
+$find(v)$
+
+$\quad return~v \rightarrow cell$
+
+Extremely simple
+
+$union(s,t)$
+$\quad remove~t~from~P$
+
+$\quad s=append(s,t)             \text{this updates P}$
+
+$\quad for~v\in t$
+
+$\quad \quad v \rightarrow cell=s$
+
+
+== Algorithm ver 2 ==
+
+
+
+$makeSet(v)$
+$\quad s = \[ v \]$
+$\quad s \rightarrow size=1$
+$\quad v \rightarrowcell =s$
+$\quad add~s~to~P$
+
+
+$union(s,t)$
+$\quad if s \rightarrow size > t \rightarrow size$
+$\quad \quad remove~t~from~P$
+$\quad \quad for~v \in t$
+$\quad \quad \quad v \rightarrowcell = s$
+$\quad \quad s=append(s,t)             \text{this updates P}$
+$\quad \quad s\rightarrow size = (s \rightarrow size) + (t \rightarrow size) $
+$\quad else $
+$\quad \quad \text{ do the same, but with s and t exchanged$
+
+The difference between these two algorithms is that now we update the bigger set, but keeping track of the sizes of the sets to perform the minimal amount of work. However the worst case runtime is still the same.
+
+=== Lemma ===
+In a series of operations of makeSet, union and find on n elements the size-heuristic, no element can have its cell field assigned more than  $\floor{log~n} + 1 $ times.
+
+=== Proof === 
+Whenever $v\rightarrow cell $ changes, the cardinality of $v\rightarrow cell$ at least doubles. But $1 <= |v \rightarrow cell | <= n$. This can happen n more than $ \floor{log~n} $i
+
+== Theorem ==
+
+With the above implementation, the running time of union-find(G) is $O(m + nlogn),~where~n=|V|~and~m=|E|$
+
+=== Proof === 
+The total number of calls to makeSet, union and find is linear in $m+n$. Each call involves a constant amount of work, updating $v\rightarrow cell$ (in union). But each of the n vertices can have its cell-pointer updated in this way at most $\floor(logn)$ times, yielding total work $O(m+n+nlogn)=O(m+nlogn)$
+
+
+== Algorithm ver 3 ==
+
+Implementing the sets not as a list but rather as a tree. With a loop at the self connecting the edge at the root of the tree. 
+
+We implement makeSet and union as 
+
+$makeSet(v)$
+$\quad v\rightarrow parent = v$
+$ \quad size(v)=1$
+$\quad return~v$
+
+$union(u,v,P)$
+$\quad v\rightarrow parent=u$
+$\quad size(u) = size(v) + size(u)$
+
+All the fun occurs in the find operation where we flatten the tree.
+
+$find(v)$
+$\quad if v\rightarrow \text{parent is not a root}$
+$\quad quad v\rightarrow = find(v \rightarrow parent)$
+$\quad return v \rightarrow parent$
+
