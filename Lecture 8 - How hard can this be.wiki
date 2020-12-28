@@ -1,0 +1,18 @@
+= How hard can this be? =
+
+== An example of SAT ==
+
+* Let $\Gamma$ be a set of (logical) clauses
+* Suppose there exists $\gamma (l_1 \or ... \or l_m) \in \Gamma$ with $m \geq 4$
+
+It is obvious any new clauses derived must be entailed from the previous clauses, i.e. the clauses do not lose validity inbetween.
+
+* Supposed the assignment $theta$ satisfies $\Gamma $ .
+* Then setting $\theta (p) = \theta ( l_1 \or l_2) $ yields an assigment satisfying $\Gamma '$
+
+* now repeat this process to exhaustion
+* We eventually obatian a set of clauses $\Gamma *$, equisatisfiable with $\Gamma$ , such that all clauses in $\Gamma *$ 
+  
+* Moral : SAT is 'not essentiall harder than ' 3-SAT because there exists a polynomial time algorithm to movre between them.
+
+
