@@ -1,0 +1,58 @@
+<html>
+<head>
+    <link rel="Stylesheet" type="text/css" href="style.css" />
+    <title>Lecture 8 - How hard can this be</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <a href="index.html">Index</a> |
+    <a href="diary/diary.html">Diary</a>
+    <hr>
+    <div class="content">
+    
+<div id="How hard can this be?"><h1 id="How hard can this be?" class="header"><a href="#How hard can this be?">How hard can this be?</a></h1></div>
+
+<div id="How hard can this be?-An example of SAT"><h2 id="An example of SAT" class="header"><a href="#How hard can this be?-An example of SAT">An example of SAT</a></h2></div>
+
+<ul>
+<li>
+Let \(\Gamma\) be a set of (logical) clauses
+
+<li>
+Suppose there exists \(\gamma (l_1 \or ... \or l_m) \in \Gamma\) with \(m \geq 4\)
+
+</ul>
+
+<p>
+It is obvious any new clauses derived must be entailed from the previous clauses, i.e. the clauses do not lose validity inbetween.
+</p>
+
+<ul>
+<li>
+Supposed the assignment \(theta\) satisfies \(\Gamma \) .
+
+<li>
+Then setting \(\theta (p) = \theta ( l_1 \or l_2) \) yields an assigment satisfying \(\Gamma '\)
+
+</ul>
+
+<ul>
+<li>
+now repeat this process to exhaustion
+
+<li>
+We eventually obatian a set of clauses \(\Gamma *\), equisatisfiable with \(\Gamma\) , such that all clauses in \(\Gamma *\) 
+
+</ul>
+  
+<ul>
+<li>
+Moral : SAT is 'not essentiall harder than ' 3-SAT because there exists a polynomial time algorithm to movre between them.
+
+</ul>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<html>
+<head>
+    <link rel="Stylesheet" type="text/css" href="style.css" />
+    <title>Review of basic concepts</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <a href="index.html">Index</a> |
+    <a href="diary/diary.html">Diary</a>
+    <hr>
+    <div class="content">
+    
+<div id="Review of Basic Concepts"><h1 id="Review of Basic Concepts" class="header"><a href="#Review of Basic Concepts">Review of Basic Concepts</a></h1></div>
+
+<ul>
+<li>
+A directed graph is a pair, \( G = (V,E) \), where V is a finite, non-empty set (verticies) and E (edges) a set of ordered (directed) pairs of distinct elements of V.
+
+<li>
+If \( e = (u,v) \in E \) is an edge, then u and v are neighbours.
+
+<li>
+Directed graphs have:
+
+<ul>
+<li>
+No self loops
+
+<li>
+No multiple edges
+
+<li>
+No directionless edges
+
+</ul>
+<li>
+The in-degree of a vertex is the number of incoming edges similary for the out-degree.
+
+<li>
+For us directed graphs are stored as adjacency lists due the potentially asymmetric nature of edges.
+
+<li>
+A path is a directed graph is a sequence of distinct vertices such that there is an edge between every vertex
+
+<li>
+If \( G = (V,E) \) is a directed graph and \( s,t \in V \), we say that t is reachable from s if there exists a path \( s = u_{0},...,u_{k} = t \) from s to t.
+
+<li>
+A directed graph is strongled connected if every vertex is reachable from every other.
+
+</ul>
+
+<p>
+These are both examples of decision problems:
+</p>
+
+<p>
+st-CON
+Given: A directed graph \( G = (V,E) \) and vertices \( s,t \in V\).
+Return: Yes if t is reachable from s in G, No otherwise.
+</p>
+
+<p>
+STRONG CONNECTIVITY
+Given: A directed graph \( G = (V,E) \)
+Return: Yes, if G is strongly connected, No otherwise.
+</p>
+
+<p>
+Determining strong connectivity in linear time can be done use DFS. 
+We know that DFS has the complextiy of \( O(n + m) \) where n is the number of vertices and m the number of edges.
+Hence we can determine also if two components (vertices) are strongly connected if DFS returns a "Yes" as its output provided it is framed as a decision problems.
+In order to frame this as a strong connectivity problem by simplying adding two additional requirements:
+</p>
+<ul>
+<li>
+\( \forall s \in V ,\exists u_{i},~~such~that~u_{i}(s,t_{i})~for~0~&lt;=~i~&lt;= n \)
+
+<li>
+\( \forall t \in V ,\exists u,~~such~that~u(t, s) \)
+
+</ul>
+
+<p>
+This states that in order for an entire graph to be strongly connected, choose any vertex as a starting vertex
+then perform DFS on every other vertex of the graph. If any vertex is unreachable G is not strongly connected and stop.
+Likewise perform DFS from every other node back to the start node. If every node has a path back to the home node then the graph is strongly connected. Due to transitivity of paths hence every node can reach every node.
+This is done in:
+</p>
+\[
+O( 2 * (n - 1) * O(DFS))~=~O( 2 * (n - 1) * (n + m) ) 
+\]
+
+    </div>
+</body>
+</html>

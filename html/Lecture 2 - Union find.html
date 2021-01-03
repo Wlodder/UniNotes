@@ -1,0 +1,240 @@
+<html>
+<head>
+    <link rel="Stylesheet" type="text/css" href="style.css" />
+    <title>Lecture 2 - Union find</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <a href="index.html">Index</a> |
+    <a href="diary/diary.html">Diary</a>
+    <hr>
+    <div class="content">
+    
+<div id="Union find"><h1 id="Union find" class="header"><a href="#Union find">Union find</a></h1></div>
+
+<p>
+Here we learn about a fundamental algorithm on undirected graphs.
+</p>
+
+<p>
+Undirected graphs is a graph in the general sense where there is a single edge between two verticies and it can be traversed in both directions. In an adjacency matrix a undirected graph is also symmetric.
+</p>
+
+<p>
+The notion for a path and connectivity is the same as with the directed graph.
+</p>
+
+<p>
+A connected copmonent of a grpah is a maximal set of vertices each of which is reachable from any other.
+</p>
+
+<p>
+Union find finds the sets of connected components of a graph.
+</p>
+
+<div id="Union find-The algorithm"><h2 id="The algorithm" class="header"><a href="#Union find-The algorithm">The algorithm</a></h2></div>
+
+<ul>
+<li>
+Let \(G=(V,E)\) be a graph.
+
+<li>
+A partition of \(V\) is a collectin of sets \(\{A_{1},...,A_{m}\}\)
+
+<ul>
+<li>
+\( A_{1} \cup ... \cup A_{m} = V\)
+
+<li>
+\(A_{i} \cap A_{j} \text{for all i, j, } (1&lt;=i&lt;j&lt;=m)\)
+
+<li>
+\(A_{i} != \null \text{for all i }(1&lt;=i&lt;=m) \)
+
+</ul>
+<li>
+We refer to the elements of a partition (sets of vertices) as cells
+
+</ul>
+
+<p>
+Basically like cutting up a cake.
+</p>
+
+<div id="Union find-The algorithm-Helpful functions"><h3 id="Helpful functions" class="header"><a href="#Union find-The algorithm-Helpful functions">Helpful functions</a></h3></div>
+<ul>
+<li>
+makeSet(v) - given a (pointer to) vertex V, add the singleton {v} to P.
+
+<li>
+union(\(A_{i},A_{j}\)) - given (pointers to) the cells \(A_{i}~and~A_{j}\), remove these from P, and add the cell \(A_{i} \cup \A_{j}\)
+
+<li>
+find(v) - given a (pointer to) vertex \(v_{i}\) return (a pointer to) the cell of P containing v.
+
+</ul>
+
+<p>
+\(union-find(V,E)\)
+\(\quad\) let \(P=\null\)
+\(\quad\) for \(v \in V\)
+\(\quad \quad\)makeSet\((v)\)
+\(\quad\)for\((u,v)\inE\)
+\(\quad \quad\)if \(find(u)!=find(v)\)
+\(\quad \quad \quad union(find(u),find(v))\)
+</p>
+
+<p>
+A walkthrough:
+</p>
+
+<p>
+P will contain the partitions of the graph. We will begin by turning every single vertex into a singleton set, then for every edge if the edge is connected to two different verticies in different sets, we merge the sets.
+The total runtime of the algorithm:
+\( union-find \in O(n^{2}) \)
+</p>
+
+<p>
+For the helper functions:
+</p>
+
+<p>
+\(makeSet(v)\)
+</p>
+
+<p>
+\(\quads =\[ v \] \text{       Create a new list}\)
+</p>
+
+<p>
+\(\quad v \rightarrow cell=s\)
+</p>
+
+<p>
+\(\quad add~s~to~P\)
+</p>
+
+<p>
+We presume each vertex contains a pointer to the set (s, a list).
+</p>
+
+<p>
+\(find(v)\)
+</p>
+
+<p>
+\(\quad return~v \rightarrow cell\)
+</p>
+
+<p>
+Extremely simple
+</p>
+
+<p>
+\(union(s,t)\)
+\(\quad remove~t~from~P\)
+</p>
+
+<p>
+\(\quad s=append(s,t)             \text{this updates P}\)
+</p>
+
+<p>
+\(\quad for~v\in t\)
+</p>
+
+<p>
+\(\quad \quad v \rightarrow cell=s\)
+</p>
+
+
+<div id="Union find-Algorithm ver 2"><h2 id="Algorithm ver 2" class="header"><a href="#Union find-Algorithm ver 2">Algorithm ver 2</a></h2></div>
+
+
+
+<p>
+\(makeSet(v)\)
+\(\quad s = \[ v \]\)
+\(\quad s \rightarrow size=1\)
+\(\quad v \rightarrowcell =s\)
+\(\quad add~s~to~P\)
+</p>
+
+
+<p>
+\(union(s,t)\)
+\(\quad if s \rightarrow size &gt; t \rightarrow size\)
+\(\quad \quad remove~t~from~P\)
+\(\quad \quad for~v \in t\)
+\(\quad \quad \quad v \rightarrowcell = s\)
+\(\quad \quad s=append(s,t)             \text{this updates P}\)
+\(\quad \quad s\rightarrow size = (s \rightarrow size) + (t \rightarrow size) \)
+\(\quad else \)
+\(\quad \quad \text{ do the same, but with s and t exchanged\)
+</p>
+
+<p>
+The difference between these two algorithms is that now we update the bigger set, but keeping track of the sizes of the sets to perform the minimal amount of work. However the worst case runtime is still the same.
+</p>
+
+<div id="Union find-Algorithm ver 2-Lemma"><h3 id="Lemma" class="header"><a href="#Union find-Algorithm ver 2-Lemma">Lemma</a></h3></div>
+<p>
+In a series of operations of makeSet, union and find on n elements the size-heuristic, no element can have its cell field assigned more than  \(\floor{log~n} + 1 \) times.
+</p>
+
+<div id="Union find-Algorithm ver 2-Proof"><h3 id="Proof" class="header"><a href="#Union find-Algorithm ver 2-Proof">Proof</a></h3></div>
+<p>
+Whenever \(v\rightarrow cell \) changes, the cardinality of \(v\rightarrow cell\) at least doubles. But \(1 &lt;= |v \rightarrow cell | &lt;= n\). This can happen n more than \( \floor{log~n} \)i
+</p>
+
+<div id="Union find-Theorem"><h2 id="Theorem" class="header"><a href="#Union find-Theorem">Theorem</a></h2></div>
+
+<p>
+With the above implementation, the running time of union-find(G) is \(O(m + nlogn),~where~n=|V|~and~m=|E|\)
+</p>
+
+<div id="Union find-Theorem-Proof"><h3 id="Proof" class="header"><a href="#Union find-Theorem-Proof">Proof</a></h3></div>
+<p>
+The total number of calls to makeSet, union and find is linear in \(m+n\). Each call involves a constant amount of work, updating \(v\rightarrow cell\) (in union). But each of the n vertices can have its cell-pointer updated in this way at most \(\floor(logn)\) times, yielding total work \(O(m+n+nlogn)=O(m+nlogn)\)
+</p>
+
+
+<div id="Union find-Algorithm ver 3"><h2 id="Algorithm ver 3" class="header"><a href="#Union find-Algorithm ver 3">Algorithm ver 3</a></h2></div>
+
+<p>
+Implementing the sets not as a list but rather as a tree. With a loop at the self connecting the edge at the root of the tree. 
+</p>
+
+<p>
+We implement makeSet and union as 
+</p>
+
+<p>
+\(makeSet(v)\)
+\(\quad v\rightarrow parent = v\)
+\( \quad size(v)=1\)
+\(\quad return~v\)
+</p>
+
+<p>
+\(union(u,v,P)\)
+\(\quad v\rightarrow parent=u\)
+\(\quad size(u) = size(v) + size(u)\)
+</p>
+
+<p>
+All the fun occurs in the find operation where we flatten the tree.
+</p>
+
+<p>
+\(find(v)\)
+\(\quad if v\rightarrow \text{parent is not a root}\)
+\(\quad quad v\rightarrow = find(v \rightarrow parent)\)
+\(\quad return v \rightarrow parent\)
+</p>
+
+    </div>
+</body>
+</html>

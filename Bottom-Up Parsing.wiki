@@ -1,0 +1,78 @@
+= Bottom-up Parsing =
+
+Goal: Given a grammar, G, construct a parse tree for a string (i.e. sentence) by starting at the leaves and wokring to the root (i.e. by working from the input sentence back toward the start symbol S).
+
+Recall: the point of parsing is to construct a derivation:
+
+{{$
+S \rightarrow \delta _0 \rightarrow \delta _1 ... \rightarrow \delta _{n-1} \rightarrow sentence 
+}}$
+
+To derive $\delta _{i-1} $ from $\delta _i$ we match some rhs b in $\delta _i$, the replace b with its corresponding lhs, A. This is called a reduction (it assumes $A \rightarrow b$).
+
+The parse tree is the result of the tokens and the reductions. Think of these reduction similarly to the moden potens resolution in Prolog.Its basically top down in reverse.
+
+== Finding Resolutions ==
+
+* What are we trying to find?
+	- A substring b that matches the right-side of a production that occurs as one step in the right most derivation. Informally, this substring is called a handle.
+* Formally, a handle of a right-sentential form $\delta$ is a pair $< A \rightarrow b, k >$, where $A \rightarrow b \in P $ and k is the position in $\delta$ of b's rightmost symbol. 	(right-sentential form: a sentential form that occurs in some right most derivation)
+	- Because $\delta$ is a right-sentential form, the substring to the right of a handle contains only terminal symbols. Therefore, the parser doesn't need to scan past the handle.
+	- If a grammar is unambiguous, then every right-sentential form has a unique handle (sketch of proof by definition: if unambiguous then rightmost derivation is unique; then there is a unique production at each step to produce a sentential form; then there is a unique position at which the rule is applied;  hence, unique handle).
+
+If we can find the handles, we can build the derivation.
+
+The way I like to think of the handles is they are in the form <rule number, part of the string we are reducing>. This can be seen in the examples from the lectures.
+
+== A basic bottom-up parser == 
+* The process of discovering a handle is called handle pruning.
+* To construct a rightmost derivation, apply the simple algorithm:
+
+This needs 2n steps, where n is the length of the derivation.
+
+One implementation is based on using a stack to hold grammar symbols and an input buffere to hold the string to be parsed. Four operations apply:
+* shift : next input is shifted (pushed) onto the top of the stack
+* reduce : right-end of the handle is on the top of the stack; locate left-end of the handle within the stack; pop handle off stack and push appropriate non-terminal left-hand-side symbol
+* accept : terminate parsing and signal success
+* error :  call an error recovery routine.
+
+=== Implementing the stack parser ===
+
+Things to think about:
+* Shift/reduce conflicts: the parser cannot decide whether to shift or to reduce.
+	- Example: the dangling-else grammar; usually due to eambiguous grammars
+	- Solution a) modify the grammar b) resolve in favour of a shift
+* Reduce/ reduce conflicts: the parser cannot decide which of several reduction to make.
+	- Example: id(id, id); the reduction is dependent on whether the first id refers to array or function.
+	- May be difficult to tackle.
+
+Key to efficient bottom-up parsing: the handle-finding mechanisms.
+
+== LR(1) Grammars == 
+
+A grammar is LR(1) if, given a rightmost derivation , we can 1) isolate the handle of each right-sentential form, and 2) detemine the production by which to reduce, by scanning the sentential form from left-to-right, going at most 1 symbol beyond the right-end of the handle.
+
+LR(1) grammars are widely used to construct (automatically) efficient) and flexible pasers:
+* Virtually all CFG language constructs can be expressed in an LR(1) form.
+* LR grammars are the most general grammars parsable by a non-backtracking, shift-reduce parser (Deterministic CFG).
+* Parsers can be implemented in time proportional to tokens+reductions.
+* LR parsers detect an error as soon as possible in a left-to-right scan of the input.
+
+=== Background ===
+Reading tokens from an input buffer (same as with shift-reduce parsers)
+Add an extra state informatino after each symbol in the stack. The stae summarises the information contained in the stack below it. The stakc would look like:
+
+{{$
+S_0~Expr~S_1 ~-~S_2~num~S_3
+}}$
+
+We also use an additional table to tell us the next state to add given a replacement:
+* action[state_on_top_of_stack, input_symbol] : returns one of: shift s(push a symbol and a state); reduce by a rule; accept; error.
+* goto[state_on_top_of_stack; non_terminal_symbol]: returns a new state to push onto the stack after a reduction.
+
+This fine and all, and it works very well however now we have to deal with the issue of populating the table itself. These bottom up parsers can be built by hand and they are perfect to automate. In conclusion they are just much more powerful. Building the table relying on an interesting properties that the handles have.
+
+== LR(1) - Table Generation  ( *_This is not examinable_* )==
+
+
+

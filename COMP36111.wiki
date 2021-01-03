@@ -8,3 +8,4 @@ This is the algorithms and complexity course from the university of manchester t
 * [[Lecture 4 - Flow networks and matching]]
 * [[Lecture 5 - The Machine Stops]]
 * [[Lecture 8 - How hard can this be?]]
+* [[Lecture 9 - Two NP-Complete Problems]]

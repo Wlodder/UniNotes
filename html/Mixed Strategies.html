@@ -1,0 +1,210 @@
+<html>
+<head>
+    <link rel="Stylesheet" type="text/css" href="style.css" />
+    <title>Mixed Strategies</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <a href="index.html">Index</a> |
+    <a href="diary/diary.html">Diary</a>
+    <hr>
+    <div class="content">
+    
+<div id="Mixed Strategies"><h1 id="Mixed Strategies" class="header"><a href="#Mixed Strategies">Mixed Strategies</a></h1></div>
+
+<p>
+A mixed strategy is a strategy which involves a probabilistic approach with pure strategies.
+We can play in both normal form (tableau) and in extensive form (tree), assigning a probability function for each choice that sum to one.
+</p>
+
+<div id="Mixed Strategies-Celebrated theorems"><h3 id="Celebrated theorems" class="header"><a href="#Mixed Strategies-Celebrated theorems">Celebrated theorems</a></h3></div>
+
+<p>
+John von Neumann (1928) : von Neumann showed that every zero-sum game with perfect informatin has solutins which minimise the maximum lsses for the players, but mixed strategies may be required von Neumann invented game theory as a mathematical discipline.
+</p>
+
+<p>
+Nash (1950) : Every game with a finite number of players in which each player has a finite number of pure strategies has at last ne Nash equilbrium. Some will involve mixed strategies. 
+</p>
+
+
+<div id="Mixed Strategies-When mixed strategies are needed"><h2 id="When mixed strategies are needed" class="header"><a href="#Mixed Strategies-When mixed strategies are needed">When mixed strategies are needed</a></h2></div>
+
+<p>
+Mixed strategies can be required when there is hidden information:
+</p>
+<ul>
+<li>
+Extensive form games with hidden information (e.g. poker)
+
+<li>
+Normal frm games always have hidden information (the hidden strategy of the opponents)
+
+</ul>
+
+
+<div id="The simplest example"><h1 id="The simplest example" class="header"><a href="#The simplest example">The simplest example</a></h1></div>
+
+<ul>
+<li>
+Two brothers Donald (older) and Eric ( younger) go to the same high school
+
+<li>
+There are two cafes in the school: Red and Blue where they lunch every day.
+
+<li>
+Donald wants to be in a different cafe then little brother
+
+<li>
+but Eric always wants to be near big brother.
+
+</ul>
+
+
+<table>
+<tr>
+<th>
+&nbsp;
+</th>
+<th>
+Red
+</th>
+<th>
+Blue
+</th>
+</tr>
+<tr>
+<td>
+Red
+</td>
+<td>
+(-1,1)
+</td>
+<td>
+(1,-1)
+</td>
+</tr>
+<tr>
+<td>
+Blue
+</td>
+<td>
+(1, -1)
+</td>
+<td>
+(-1, 1)
+</td>
+</tr>
+</table>
+
+<p>
+Each chooses the lunch spot probabilistically.
+</p>
+
+<p>
+Donald chooses Red with probability \(x\), therefore choosing Blue with probability \(1 - x\).
+Eric chooses Red with probability \(y\), likewise the same as Donald's choice for blue: \(1-y\) .
+</p>
+
+
+<ul>
+<li>
+Since the strategies are probabilistic, so are the payoffs.
+
+<li>
+S we need the expected payoffs.
+
+<li>
+Let \(U_1 (S_1 , S_2 ) \) is the payoff to Player 1 for a given set of pure strategies, \(( S_1 , S_2)\)
+
+<li>
+Expected payoff is \(Ex \[ U_1 (S_1, S_2 ) \] \).
+
+</ul>
+
+<div id="The simplest example-Optimising Donald's decision"><h2 id="Optimising Donald's decision" class="header"><a href="#The simplest example-Optimising Donald's decision">Optimising Donald's decision</a></h2></div>
+
+
+<p>
+If Eric always goes to Red cafe:
+</p>
+
+\begin{align}
+
+Exc \[ U_{1} (s_{1} (x) , Red ) \] &amp; = (-1) x + (1) ( 1 - x) \\
+&amp; 1 - 2 x 
+
+\end{align}
+
+<p>
+If Eric always goes to Blue cafe:
+</p>
+
+\begin{align}
+
+Ex \[ U_{1} ( S_{1} (x), Blue ) \] &amp; = (1) x - (-1) (1 - x) \\
+&amp; 2 x - 1
+\end{align}
+
+<p>
+<span id="The simplest example-Optimising Donald's decision-Task"></span><strong id="Task">Task</strong>: find the value of \(x\) such that:
+</p>
+
+\begin{align}
+
+Ex \[ U_{1} ( S_{1} (x), Red) \] &amp; = Ex \[ U_{1} ( S_{1} ( x ) , Blue ) \] 
+\end{align}
+
+
+<div id="The simplest example-Why must the expected payffs be equal ?"><h2 id="Why must the expected payffs be equal ?" class="header"><a href="#The simplest example-Why must the expected payffs be equal ?">Why must the expected payffs be equal ?</a></h2></div>
+
+<p>
+If they are not equal then :
+</p>
+<ul>
+<li>
+Eric will have a pure strategy best response
+
+<li>
+Then Donald's best respnse will be a pure strategy 
+
+<li>
+But there is no pure stategy Nash equilibrium!
+
+</ul>
+
+<div id="The simplest example-Why must the expected payffs be equal ?-Interesting property of the solution"><h3 id="Interesting property of the solution" class="header"><a href="#The simplest example-Why must the expected payffs be equal ?-Interesting property of the solution">Interesting property of the solution</a></h3></div>
+
+<p>
+A common feature of mixed strategy Nash equilibria
+</p>
+
+<ol>
+<li>
+If one player plays its component of the mixed Nash equilibrium, the payoff is indifferetn to what the other player does.
+
+<li>
+The other player must also play its component of the Nash equilibrium to force the first player to play its cmpoonent and not take advantage.
+
+</ol>
+
+
+<div id="The simplest example-Key ideas"><h2 id="Key ideas" class="header"><a href="#The simplest example-Key ideas">Key ideas</a></h2></div>
+
+<ul>
+<li>
+Introduce probabilities over pure strategies
+
+<li>
+Set the expected payoffs against each opponents's pure strategy to be equal to find the value of the probabilites
+
+<li>
+With 2-action, 2-player gamnes, Nash equilibria can be found graphically.
+
+</ul>
+
+    </div>
+</body>
+</html>

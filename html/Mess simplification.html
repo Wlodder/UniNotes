@@ -1,0 +1,72 @@
+<html>
+<head>
+    <link rel="Stylesheet" type="text/css" href="style.css" />
+    <title>Mess simplification</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <a href="index.html">Index</a> |
+    <a href="diary/diary.html">Diary</a>
+    <hr>
+    <div class="content">
+    
+<div id="Mesh simplification"><h1 id="Mesh simplification" class="header"><a href="#Mesh simplification">Mesh simplification</a></h1></div>
+
+<p>
+This the act of turning a high polygon mesh into another one with less vertices that looks the same.
+</p>
+
+<div id="Mesh simplification-Simplification by edge collapse"><h2 id="Simplification by edge collapse" class="header"><a href="#Mesh simplification-Simplification by edge collapse">Simplification by edge collapse</a></h2></div>
+
+<p>
+What we do is basically,
+</p>
+
+<ol>
+<li>
+Select an edge
+
+<li>
+Delete the two verticies that the edge connected
+
+<li>
+Reconnect the edges
+
+</ol>
+
+<p>
+If the edge was not part of the convex hull, an interior edge, then the convex hull will be kept. 
+By doing this the distribution of the edge is uniform, this mainly loses detail the more edges you remove.
+</p>
+
+<div id="Mesh simplification-Occlusion"><h2 id="Occlusion" class="header"><a href="#Mesh simplification-Occlusion">Occlusion</a></h2></div>
+
+<p>
+This is what happens when we do not have data or poor data for an area of the object and we must extrapolate to capture the object in more detail. This is true for basically all models as a single scan can basically never capture all of the detail.
+</p>
+
+<div id="Mesh simplification-Occlusion-Multiple scans"><h3 id="Multiple scans" class="header"><a href="#Mesh simplification-Occlusion-Multiple scans">Multiple scans</a></h3></div>
+
+<p>
+To help prevent occlusion we move the scanner or the object, whichever is easier.
+</p>
+
+<p>
+Now that we have two point clouds, each a scan from a different angle. How do we get one overall set of vertices. We apply a number of iterations moving a point cloud to the other point cloud until the area between the point clouds have been minimized.
+</p>
+
+<div id="Mesh simplification-Occlusion-Volumetric diffusion"><h3 id="Volumetric diffusion" class="header"><a href="#Mesh simplification-Occlusion-Volumetric diffusion">Volumetric diffusion</a></h3></div>
+
+<p>
+THis is done by assuming that two surfaces must be connecting if they are adjacent. We convert the surfaces to a source term for a light diffusion simulation. Then based off the results from this diffusion process a surface connection is formed.
+</p>
+
+<p>
+(THis part doesn't make a lot of sense tbh and isn't convered directly in the lectures)
+</p>
+
+    </div>
+</body>
+</html>

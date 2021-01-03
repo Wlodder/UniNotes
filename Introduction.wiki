@@ -36,7 +36,7 @@ What qualities would you want in a compiler?
 === Principles of Compilation ===
 The compiler must:
 * preserve the meaning of the program being compiled.
-* "imprve" the source code in some way e.g. readability, optimization.
+* "improve" the source code in some way e.g. readability, optimization.
 
 Other issues:
 * Speed (of compield code)
@@ -46,7 +46,7 @@ Other issues:
 * Compilation time efficiency
 
 
-== Why study Compilatino Technology? ==
+== Why study Compilation Technology? ==
 
 * Success stories
 	- Applying theory to practice

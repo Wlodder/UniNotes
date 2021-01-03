@@ -1,0 +1,58 @@
+<html>
+<head>
+    <link rel="Stylesheet" type="text/css" href="style.css" />
+    <title>The Ford-Fullerson algorithm</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <a href="index.html">Index</a> |
+    <a href="diary/diary.html">Diary</a>
+    <hr>
+    <div class="content">
+    
+<div id="Ford-Fullerson"><h1 id="Ford-Fullerson" class="header"><a href="#Ford-Fullerson">Ford-Fullerson</a></h1></div>
+
+<p>
+The idea of this algorithm is to use an "auxiliary directed graph".
+</p>
+
+<p>
+Let \( N = (V,E,s,t,c) \) be a flow network and \(f\) a flow for \(N\).
+</p>
+
+<p>
+The auxiiliary directed graph \(N_{f}\) is \(G=(V,E_{f})\),  where \(E_{f}\) is the set of pairs:
+</p>
+
+\[
+ \{ (u,v) \in E | f(u,v) &lt; c(u,v) \} \cup \{ (u,v) | (v,u) \in E ~and~ f(v,u) &gt; 0 \}
+\]
+ 
+<p>
+See video for the algorithm.
+</p>
+
+
+<div id="Ford-Fullerson-lemma"><h3 id="lemma" class="header"><a href="#Ford-Fullerson-lemma">lemma</a></h3></div>
+
+<p>
+Let \(N = (V,E,s,t,c)\) be a flow network and \(f\) a flow in \(N\). Then there is a path in \(N_{f}\) from \(s\) to \(t\) if and only if \(f\) is not optimal.
+</p>
+
+
+<div id="Ford-Fullerson-proof"><h3 id="proof" class="header"><a href="#Ford-Fullerson-proof">proof</a></h3></div>
+
+<p>
+The only-if direction is trivial. Supposem conversly, there is no path from \(s\) to \(t\) in \(N_{f}\). Let \(S\) be the set of nodes \(V\) reachable from \(s\) in \(N_{f}\) and \(T=V\\S\)
+</p>
+
+
+<p>
+There is no backflow from \(T\) to \(S\), and no spare capacity from \(S\) to \(T\).
+</p>
+
+    </div>
+</body>
+</html>

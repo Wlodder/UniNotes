@@ -1,0 +1,73 @@
+<html>
+<head>
+    <link rel="Stylesheet" type="text/css" href="style.css" />
+    <title>Generative Modelling </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <a href="index.html">Index</a> |
+    <a href="diary/diary.html">Diary</a>
+    <hr>
+    <div class="content">
+    
+<div id="Generative Modelling"><h1 id="Generative Modelling" class="header"><a href="#Generative Modelling">Generative Modelling</a></h1></div>
+
+<p>
+Generate something and then render it later.
+</p>
+
+<div id="Generative Modelling-Why polygons fail"><h3 id="Why polygons fail" class="header"><a href="#Generative Modelling-Why polygons fail">Why polygons fail</a></h3></div>
+
+<p>
+We make polygons and then shade them in later, and this works for the most part - looks pretty good, but not everything is a polygon in a natural setting. Waterfalls and a lot of natural phenomena are not easy to render using polygons.
+</p>
+
+<div id="Generative Modelling-Fractal Geometry"><h2 id="Fractal Geometry" class="header"><a href="#Generative Modelling-Fractal Geometry">Fractal Geometry</a></h2></div>
+
+<p>
+A fractal is a shape that has a certain amount of self similarity at different scales of viewing the pattern. Smaller pieces of brocolli look like zoomed in images of larger pieces of brocolli.
+</p>
+
+<div id="Generative Modelling-Fractal Geometry-How long is a coastline?"><h3 id="How long is a coastline?" class="header"><a href="#Generative Modelling-Fractal Geometry-How long is a coastline?">How long is a coastline?</a></h3></div>
+
+<p>
+Really we should ask our selves how long is the unit of measurement we are using. Using a smaller unit we can get a more accurate representation of the coast line but we need more units to get the length. 
+</p>
+
+<ul>
+<li>
+Answer: it depends what ruler you use.
+
+</ul>
+
+<div id="Generative Modelling-Modelling fractal curves"><h2 id="Modelling fractal curves" class="header"><a href="#Generative Modelling-Modelling fractal curves">Modelling fractal curves</a></h2></div>
+
+<ul>
+<li>
+How can we model such curves?
+
+<li>
+One approach is recurise subdivision
+
+<ul>
+<li>
+Take mid-point of line, displace it randomly
+
+<li>
+Replace first line with two new lines
+
+<li>
+Repeat recursively until required level of detail
+
+</ul>
+</ul>
+
+<p>
+This can be done in any number of dimensions.
+</p>
+
+    </div>
+</body>
+</html>

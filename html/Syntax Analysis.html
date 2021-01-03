@@ -1,0 +1,403 @@
+<html>
+<head>
+    <link rel="Stylesheet" type="text/css" href="style.css" />
+    <title>Syntax Analysis</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <a href="index.html">Index</a> |
+    <a href="diary/diary.html">Diary</a>
+    <hr>
+    <div class="content">
+    
+<div id="Syntax Analysis"><h1 id="Syntax Analysis" class="header"><a href="#Syntax Analysis">Syntax Analysis</a></h1></div>
+
+<p>
+Lexical Analysis: 
+</p>
+<ul>
+<li>
+Reads characters of the input program an produces tokens
+
+<ul>
+<li>
+But: Are they syntactically correct? Are they valid sentences of the input language
+
+</ul>
+</ul>
+
+<p>
+The descriptive power of regular expressions has limits:
+</p>
+<ul>
+<li>
+Not all languages can be described by Regular Expressions (See the chomsky hierarchy)
+
+<li>
+An example is the example of a nested expression since regular languages do not have memory.
+
+<li>
+In regular expressinos, a non-terminal symbol cannot be used before it has been fully defined.
+
+</ul>
+
+<p>
+Chomsky's hierarchy of Grammars:
+</p>
+<ul>
+<li>
+Phrase structured
+
+<li>
+Context Sensitive
+
+<ul>
+<li>
+number of Left Hand Side Symbols is less than or equal to the number of right hand symbols
+
+</ul>
+<li>
+Context-free
+
+<ul>
+<li>
+The Left Hand Side Symbol is non-terminal
+
+</ul>
+<li>
+regular
+
+<ul>
+<li>
+Only rules of the form: \( A \rightarrow \epsilon, A \rightarrow a, A \rightarrow p B\)
+
+</ul>
+</ul>
+
+<p>
+the regular languages are the most restricted kind of grammar. 
+</p>
+
+<div id="Syntax Analysis-Context free grammars"><h2 id="Context free grammars" class="header"><a href="#Syntax Analysis-Context free grammars">Context free grammars</a></h2></div>
+
+<p>
+Context free syntax is specified with a context-free grammar.
+</p>
+
+<p>
+A grammar can be defined as a 4-tuple \(G={S, N, T, P}\), where:
+</p>
+<ul>
+<li>
+S is a starting symbol
+
+<li>
+N is a set of non-terminal symbols
+
+<li>
+T is a set of terminal symbols
+
+<li>
+P is a set of production rules
+
+</ul>
+
+<div id="Syntax Analysis-Context free grammars-Derivations and parse trees"><h3 id="Derivations and parse trees" class="header"><a href="#Syntax Analysis-Context free grammars-Derivations and parse trees">Derivations and parse trees</a></h3></div>
+
+<p>
+Derivation: a sequence of derivatino steps:
+</p>
+<ul>
+<li>
+At each step, we choose a non-terminal to replace
+
+<li>
+Different choices can lead to different derivations
+
+</ul>
+
+<p>
+Two derivations are of interest:
+</p>
+<ul>
+<li>
+Leftmost derivation: at each step, replace the leftmost non-terminal 
+
+<li>
+Rightmost derivation: at each step, replace the rightmost non-terminal
+
+</ul>
+
+<p>
+A parse tree is a graphical representation for a derivation that filters out the choice regarding the replacement order.
+</p>
+
+<p>
+Example:
+CFG is:
+$$%align%
+Goal \rightarrow Expr
+$$
+</p>
+
+<p>
+$$
+Expr \rightarrow Expr~or~Expr ~|~ number ~ | ~ id
+$$
+</p>
+
+<p>
+$$
+Op \rightarrow +|-|*|/
+$$
+</p>
+
+
+<p>
+We can use this to parse the expression, " x - 2 * y "
+However in closer inspection to the meaning of the phrase the rightmost and left most derivations give us two meanings: "x - (2 * y)" and "(x - 2) * y". 
+The two derivations point out a problem with this grammar in that it has no notion of precedence ( or implied order of evaluation). To add precedence we force the parse to recognise high-precedence subexpressions first using brackets.
+</p>
+
+<div id="Syntax Analysis-Context free grammars-Ambiguity"><h3 id="Ambiguity" class="header"><a href="#Syntax Analysis-Context free grammars-Ambiguity">Ambiguity</a></h3></div>
+<p>
+A grammar that produces more than one parse tree for some sentence is ambiguous. Or:
+</p>
+<ul>
+<li>
+If a grammar has more than noe leftmost derivation for a single sentential form, the grammar is ambiguous. 
+
+<li>
+If a grammar has more than one rightmost derivation for a single sentential form, the grammar is ambiguous.
+
+</ul>
+
+<p>
+Example:
+</p>
+<ul>
+<li>
+\(Stmt \rightarrow \text{if Expr then Stmt | if Expr then Stmt else Etmt | ... }\)
+
+<li>
+What are the derivations of:
+
+<ul>
+<li>
+if E1 then if E2 then S1 else S2
+
+</ul>
+</ul>
+
+<p>
+The standard way to get rid of ambiguoity we rewrite the grammar.
+</p>
+
+<div id="Syntax Analysis-Context free grammars-Deeper Ambiguity"><h3 id="Deeper Ambiguity" class="header"><a href="#Syntax Analysis-Context free grammars-Deeper Ambiguity">Deeper Ambiguity</a></h3></div>
+
+<ul>
+<li>
+Ambiguity usually refers to confusion in the CFG
+
+<li>
+Overloading can create deeper ambiguity
+
+<ul>
+<li>
+E.g.: a=b(3) : b could be either a function or a variable (FORTRAN, C++)
+
+</ul>
+<li>
+Disambiguating this one requires context:
+
+<ul>
+<li>
+An issue of type, not context-free syntax
+
+<li>
+Needs values of declarations
+
+<li>
+Requires an extra-grammatical solution
+
+</ul>
+<li>
+Resolving ambiguity:
+
+<ul>
+<li>
+if context-free: rewrite the grammar
+
+<li>
+context-sensitive ambiguity: check with other means: needs knowledge of types, declarations, ... This is a language design problem
+
+</ul>
+</ul>
+
+<p>
+Sometimes the compiler write accepts an ambiguous grammar: parsing techniques may do the "right thing" but this is not always true.
+</p>
+
+<div id="Syntax Analysis-Parsing"><h2 id="Parsing" class="header"><a href="#Syntax Analysis-Parsing">Parsing</a></h2></div>
+
+<p>
+Top-down parsers:
+</p>
+<ul>
+<li>
+Construct the top node of the tree and then the rest in pre-order (depth-first)
+
+<li>
+Pick a production and try to match the input; if you fail; backtrack
+
+<li>
+Essentially , we try to find a leftmost derivation for the input string (which we scan left-to-right).
+
+<li>
+some grammars are backtrack-free (predictive parsing)
+
+</ul>
+
+<p>
+Bottom-down parsers:
+</p>
+<ul>
+<li>
+Construct the tree for an input string, beginning at the leaves and working up towards the top (root)
+
+<li>
+Bottom-up parsing, using left-to-right scan of the input, tries to construct a rightmost derivation in reverse.
+
+<li>
+Handle a large class of grammars.
+
+</ul>
+
+<div id="Syntax Analysis-Parsing-Top-Down Recursive-Descent Parsing"><h3 id="Top-Down Recursive-Descent Parsing" class="header"><a href="#Syntax Analysis-Parsing-Top-Down Recursive-Descent Parsing">Top-Down Recursive-Descent Parsing</a></h3></div>
+<ul>
+<li>
+Construct the root with the starting symbol of the grammar.
+
+<li>
+Repeat until the fringe of the parse tree matches the input string:
+
+<ul>
+<li>
+Assuming a node labelled A, select a production rule with A on its left-hand-side and, for each symbol on its right-hand-side, construct the appropriate childe.
+
+<li>
+When a terminal symbol is added to the fringe and it doesn't match the fringe, backtrack.
+
+<li>
+Find the next node to be expanded.
+
+</ul>
+</ul>
+
+
+<p>
+The key is picking the right productions in the first step: that choice should be guided by the input string.
+</p>
+
+
+<div id="Syntax Analysis-Parsing-Left-Recursive Grammars"><h3 id="Left-Recursive Grammars" class="header"><a href="#Syntax Analysis-Parsing-Left-Recursive Grammars">Left-Recursive Grammars</a></h3></div>
+
+<ul>
+<li>
+Definition: a grammar is left-recursive if it has a non-terminal symbol A, such that there is a derivation A -&gt; Aa, for some string a.
+
+<li>
+A left-recursive grammar can cause a recursive-descent parser to go into into an infinite loop.
+
+<li>
+Eliminating  left-recursion: In many cases, it is sufficient to replace \( A \rightarrow A a | b \) with \( A \rightarrow b A ' \) and \( A' \rightarrow a A' | \epsilon\)
+
+</ul>
+
+<p>
+What we have essentially done in the examble above is turn the left recursive grammar into a right recursive grammar. You may think this is counter intuitive however, since we are dealing with leftmost derivation in topdown parsers we do not care about right recursion.
+</p>
+
+<div id="Syntax Analysis-Where are we?"><h2 id="Where are we?" class="header"><a href="#Syntax Analysis-Where are we?">Where are we?</a></h2></div>
+
+<p>
+We can produce a top-down parser, but if it picks the wrong production rule it has to backtrack.
+</p>
+
+<p>
+Idea: look ahead in input and use context to pick correctly.
+How much lookahead is needed?
+</p>
+<ul>
+<li>
+in general, an arbitrarily large amount.
+
+<li>
+Fortunately, most programming language constructs fall into subclasses of context-free grammars that can be parsed with limited lookahead.
+
+</ul>
+
+
+<div id="Syntax Analysis-Predictive Parsing"><h2 id="Predictive Parsing" class="header"><a href="#Syntax Analysis-Predictive Parsing">Predictive Parsing</a></h2></div>
+
+<p>
+The basic idea is to choose a rule that is the correct rule to expand given the context of the thing that we are parsing.
+</p>
+
+<ul>
+<li>
+FIRST sets:
+
+<ul>
+<li>
+For any symbol A, FIRST(A) is defined as "the set of terminal symbols that appear as the first symbol of one or more strings dervied from A".
+
+<li>
+E.g. From the previous grammar: FIRST(Expr) = {+, -, \(\epsilon\)}, FIRST(Term) = {*, /, \(\epsilon\)}, FIRST(Factor) = {number, id}
+
+</ul>
+<li>
+The LL(1) property:
+
+<ul>
+<li>
+If \(A \rightarrow a" and " A \rightarrow b" both appear in the grammar, we would like to have: \)FIRST(a) \cup FIRST(b) = \null$. This would allow parser to make a correct choice with a lookahead of exactly one symbol!
+
+</ul>
+</ul>
+
+<p>
+If LL(1) property is upheld in the grammar then it is possible for the grammar to be deterministic.
+</p>
+
+<p>
+But what if my grammar does not have the LL(1) property?
+</p>
+
+<p>
+We can transform it using factoring.
+</p>
+
+<div id="Syntax Analysis-Predictive Parsing-Algorithm"><h3 id="Algorithm" class="header"><a href="#Syntax Analysis-Predictive Parsing-Algorithm">Algorithm</a></h3></div>
+
+<ol>
+<li>
+For each non-terminal A, find the longest prefix, say a, common to two of more of its alternatives
+
+<li>
+if \(a \neq \epsilon \) then replace all the A productions, \(A \rightarrow ab_1 | ab_2 | ab_3 | ... | ab_n | \gamma\), where \(\gamma\) is anything that does not begin with a, with \(A \rightarrow aZ | \gamma\) and \(Z \rightarrow b_1 | b_2 | b_3| ... | b_n\)
+
+</ol>
+<p>
+Repeat the above until no common prefixes remain
+</p>
+
+<p>
+<a href=" Bottom-Up Parsing.html">Bottom-Up Parsing</a>
+</p>
+
+    </div>
+</body>
+</html>

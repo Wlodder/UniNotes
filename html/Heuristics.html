@@ -1,0 +1,203 @@
+<html>
+<head>
+    <link rel="Stylesheet" type="text/css" href="style.css" />
+    <title>Heuristics</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <a href="index.html">Index</a> |
+    <a href="diary/diary.html">Diary</a>
+    <hr>
+    <div class="content">
+    
+<div id="Heuristics"><h1 id="Heuristics" class="header"><a href="#Heuristics">Heuristics</a></h1></div>
+
+<ul>
+<li>
+A* algorithms an importatn algorithm is an artificial intelligence.
+
+<li>
+Dijkstra's algorithm
+
+<li>
+Greedy heuristic
+
+</ul>
+
+<div id="Heuristics-What is a heuristic ?"><h2 id="What is a heuristic ?" class="header"><a href="#Heuristics-What is a heuristic ?">What is a heuristic ?</a></h2></div>
+
+<ul>
+<li>
+Rules which are applied becuase they are found to have worked.
+
+<li>
+By trial and error
+
+</ul>
+
+<p>
+We can abstract a state space as weighted graphs. So think of it like a tree of alternate realities.
+</p>
+<ul>
+<li>
+Nodes : represent the states of the puzzle.
+
+<li>
+Edges : An edge from noeds i to j represent a direct move from state i to state j.
+
+<li>
+Weights : c(i,j) represents positive distances (time or costs) associated with the move from i to j.
+
+</ul>
+
+<div id="Heuristics-Dijkstra's algorithm"><h2 id="Dijkstra's algorithm" class="header"><a href="#Heuristics-Dijkstra's algorithm">Dijkstra's algorithm</a></h2></div>
+
+<ul>
+<li>
+Finds the shortest path from source to all other nodes in graph.
+
+<li>
+Searches nodes nearest to source node first (priority queue)
+
+<li>
+When a node is popped from the priority queue, the shortest path to it has been found.
+
+<li>
+The algorithm is complete
+
+<li>
+Finds the shortest path
+
+</ul>
+
+<p>
+How would a human sovle these problems?
+</p>
+
+<ul>
+<li>
+Move to the available state x seemingly "closest to the goal"
+
+<li>
+Requires a "heuristic" function:
+
+</ul>
+
+\[
+	h(x)=\text{estimated distance from node x to the goal}
+	
+\]
+<ul>
+<li>
+Repeatedly move to the availabe node x' connected to state x with the lowest value of h(x')
+
+</ul>
+
+<div id="Heuristics-Greedy heuristic search"><h2 id="Greedy heuristic search" class="header"><a href="#Heuristics-Greedy heuristic search">Greedy heuristic search</a></h2></div>
+<ul>
+<li>
+Uses a heuristic h(x) approximation for the distnace to the goal
+
+<li>
+Not complete - will not necessarily find a path
+
+<li>
+Does not necessarily find the optimal path
+
+<li>
+Fast
+
+<li>
+Informed 
+
+<li>
+can be complete with backtracking
+
+</ul>
+
+<div id="Heuristics-A* algorithm"><h2 id="A* algorithm" class="header"><a href="#Heuristics-A* algorithm">A* algorithm</a></h2></div>
+
+<p>
+A* algorthim combines the two algorithms.
+</p>
+<ul>
+<li>
+g(x) the distance from the source s to the node x
+
+<ul>
+<li>
+ The distance from dijkstra's to the node
+
+</ul>
+<li>
+h(x) the distance from the node x to the target node
+
+<ul>
+<li>
+The heuristic's distance
+
+</ul>
+</ul>
+
+<p>
+A* algorithm is dijkstra's but instead the weights we use are:
+g(x) + h(x) as the weight.
+</p>
+  
+  
+<div id="Heuristics-what makes a good heuristic"><h2 id="what makes a good heuristic" class="header"><a href="#Heuristics-what makes a good heuristic">what makes a good heuristic</a></h2></div>
+<ul>
+<li>
+admissible
+
+<ul>
+<li>
+The distance from all nodes to the goal is less than the true shortest distance
+
+<li>
+i.e. h underestimates the distnace to the goal
+
+<li>
+h(x) should be optimistic
+
+</ul>
+<li>
+monotonic - obey's the triangle inequality
+
+<ul>
+<li>
+A heuristic is called monotonic or consistnent if for all children y of x. \( h(x) &lt;= c(x,y) + h(y) \)
+
+</ul>
+<li>
+informative - as close to the true distance without exceeding it
+
+<ul>
+<li>
+h(x) is the true shortest distance to the goal.
+
+</ul>
+</ul>
+
+<div id="Heuristics-Can we apply these ideas to games?"><h2 id="Can we apply these ideas to games?" class="header"><a href="#Heuristics-Can we apply these ideas to games?">Can we apply these ideas to games?</a></h2></div>
+
+<p>
+No!, But, ...
+</p>
+<ul>
+<li>
+The heuristic h(x) is a "state evaluation" function.
+
+<li>
+In games, we use board evaluation functions.
+
+</ul>
+<p>
+But the search algorithms must be modified (to take into account the other players - potentially negative)
+</p>
+
+    </div>
+</body>
+</html>

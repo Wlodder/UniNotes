@@ -1,0 +1,45 @@
+= 3-colourability =
+
+Let $G=(V,E)$ be a graph. A k-colouring of $G$ is a function $f:V \rightarrow {0,1,....,k-1} $ such that, for any edge $(u,v) \in E, f(u) \neq f(v)$
+
+We say that $G$ is k-colourable if there exists a k-colouring for $G$.
+This gives us the problem of k-Colourability: a decision problem to tell whether a graph is k-colourable. Clearly, k-Colourability is in NPTime for all k, since we can guess a colouring and check it in polynomial time.
+
+We are going to show that 3-Colourability is NPTime-hard.
+
+We proceed by reduction from 3SAT: from a set of 3-literal clauses $\Gamma$, we compute (in logarithmic space) a graph $G_\Gamma$ and show that $\Gamma$ is satisfiable iff $G_\Gamma$ is 3-colourable.
+We built the graph using a series of gadgets.
+
+== The first gadget ==
+
+The green nodes are internal to the gadget: the grey nodes will interface to other nodes in the graph.
+It is obvious that, in any colouring, a and b will have the same colour.
+Conversely, if a and b have the same colour, we can always extend to a three-colouring of the whole gadget.
+
+
+== The second gadget ==
+
+The green nodes are internal to the gadget: the grey nodes will interface to other nodes in the graph.
+It is obvious that, in any colouring, a will have the same colour as exactly one of b and c.
+Moreover, if a has the same colour as exactly one of b and c, we can extend to a three-colouring.
+
+
+== The third gadget ==
+
+The green nodes are internal to the gadget: the grey nodes will interface to other nodes in the graph.
+
+Suppose b and c are differntly coloured ( blue and red).
+Then a can be given either of these colours:
+
+
+On the other hand, if a has a different colour, we get stuck:
+
+
+Supposed b and c have the same colour (red)
+Then a can be given the colour too: 
+
+
+
+On the other hand, if a has a different colour (white), we get stuck.
+
+It is possible to stick together two of the gadgets, in which a hs to have the same colour as any of b, c or d (with all colourings possible).

@@ -1,0 +1,199 @@
+<html>
+<head>
+    <link rel="Stylesheet" type="text/css" href="style.css" />
+    <title> Bottom-Up Parsing</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <a href="index.html">Index</a> |
+    <a href="diary/diary.html">Diary</a>
+    <hr>
+    <div class="content">
+    
+<div id="Bottom-up Parsing"><h1 id="Bottom-up Parsing" class="header"><a href="#Bottom-up Parsing">Bottom-up Parsing</a></h1></div>
+
+<p>
+Goal: Given a grammar, G, construct a parse tree for a string (i.e. sentence) by starting at the leaves and wokring to the root (i.e. by working from the input sentence back toward the start symbol S).
+</p>
+
+<p>
+Recall: the point of parsing is to construct a derivation:
+</p>
+
+<p>
+$$
+S \rightarrow \delta _0 \rightarrow \delta _1 ... \rightarrow \delta _{n-1} \rightarrow sentence
+$$
+</p>
+
+<p>
+To derive \(\delta _{i-1} \) from \(\delta _i\) we match some rhs b in \(\delta _i\), the replace b with its corresponding lhs, A. This is called a reduction (it assumes \(A \rightarrow b\)).
+</p>
+
+<p>
+The parse tree is the result of the tokens and the reductions. Think of these reduction similarly to the moden potens resolution in Prolog.Its basically top down in reverse.
+</p>
+
+<div id="Bottom-up Parsing-Finding Resolutions"><h2 id="Finding Resolutions" class="header"><a href="#Bottom-up Parsing-Finding Resolutions">Finding Resolutions</a></h2></div>
+
+<ul>
+<li>
+What are we trying to find?
+
+<ul>
+<li>
+A substring b that matches the right-side of a production that occurs as one step in the right most derivation. Informally, this substring is called a handle.
+
+</ul>
+<li>
+Formally, a handle of a right-sentential form \(\delta\) is a pair \(&lt; A \rightarrow b, k &gt;\), where \(A \rightarrow b \in P \) and k is the position in \(\delta\) of b's rightmost symbol. 	(right-sentential form: a sentential form that occurs in some right most derivation)
+
+<ul>
+<li>
+Because \(\delta\) is a right-sentential form, the substring to the right of a handle contains only terminal symbols. Therefore, the parser doesn't need to scan past the handle.
+
+<li>
+If a grammar is unambiguous, then every right-sentential form has a unique handle (sketch of proof by definition: if unambiguous then rightmost derivation is unique; then there is a unique production at each step to produce a sentential form; then there is a unique position at which the rule is applied;  hence, unique handle).
+
+</ul>
+</ul>
+
+<p>
+If we can find the handles, we can build the derivation.
+</p>
+
+<p>
+The way I like to think of the handles is they are in the form &lt;rule number, part of the string we are reducing&gt;. This can be seen in the examples from the lectures.
+</p>
+
+<div id="Bottom-up Parsing-A basic bottom-up parser"><h2 id="A basic bottom-up parser" class="header"><a href="#Bottom-up Parsing-A basic bottom-up parser">A basic bottom-up parser</a></h2></div>
+<ul>
+<li>
+The process of discovering a handle is called handle pruning.
+
+<li>
+To construct a rightmost derivation, apply the simple algorithm:
+
+</ul>
+
+<p>
+$$%align
+\begin{tabular}[|]
+\textbf{for} i =n ~to~1, step ~ -1 &amp; \\
+&amp; \textbf{find} \text{the handle } &lt;A \rightarrow b, k &gt;_i in \delta_i \\
+&amp; \textbf{replace } \text{b with A to generate } \delta _{i-1} 
+</p>
+
+<p>
+$$
+</p>
+
+<p>
+This needs 2n steps, where n is the length of the derivation.
+</p>
+
+<p>
+One implementation is based on using a stack to hold grammar symbols and an input buffere to hold the string to be parsed. Four operations apply:
+</p>
+<ul>
+<li>
+shift : next input is shifted (pushed) onto the top of the stack
+
+<li>
+reduce : right-end of the handle is on the top of the stack; locate left-end of the handle within the stack; pop handle off stack and push appropriate non-terminal left-hand-side symbol
+
+<li>
+accept : terminate parsing and signal success
+
+<li>
+error :  call an error recovery routine.
+
+</ul>
+
+<div id="Bottom-up Parsing-A basic bottom-up parser-Implementing the stack parser"><h3 id="Implementing the stack parser" class="header"><a href="#Bottom-up Parsing-A basic bottom-up parser-Implementing the stack parser">Implementing the stack parser</a></h3></div>
+
+<p>
+Things to think about:
+</p>
+<ul>
+<li>
+Shift/reduce conflicts: the parser cannot decide whether to shift or to reduce.
+
+<ul>
+<li>
+Example: the dangling-else grammar; usually due to eambiguous grammars
+
+<li>
+Solution a) modify the grammar b) resolve in favour of a shift
+
+</ul>
+<li>
+Reduce/ reduce conflicts: the parser cannot decide which of several reduction to make.
+
+<ul>
+<li>
+Example: id(id, id); the reduction is dependent on whether the first id refers to array or function.
+
+<li>
+May be difficult to tackle.
+
+</ul>
+</ul>
+
+<p>
+Key to efficient bottom-up parsing: the handle-finding mechanisms.
+</p>
+
+<div id="Bottom-up Parsing-LR(1) Grammars"><h2 id="LR(1) Grammars" class="header"><a href="#Bottom-up Parsing-LR(1) Grammars">LR(1) Grammars</a></h2></div>
+
+<p>
+A grammar is LR(1) if, given a rightmost derivation , we can 1) isolate the handle of each right-sentential form, and 2) detemine the production by which to reduce, by scanning the sentential form from left-to-right, going at most 1 symbol beyond the right-end of the handle.
+</p>
+
+<p>
+LR(1) grammars are widely used to construct (automatically) efficient) and flexible pasers:
+</p>
+<ul>
+<li>
+Virtually all CFG language constructs can be expressed in an LR(1) form.
+
+<li>
+LR grammars are the most general grammars parsable by a non-backtracking, shift-reduce parser (Deterministic CFG).
+
+<li>
+Parsers can be implemented in time proportional to tokens+reductions.
+
+<li>
+LR parsers detect an error as soon as possible in a left-to-right scan of the input.
+
+</ul>
+
+<div id="Bottom-up Parsing-LR(1) Grammars-Background"><h3 id="Background" class="header"><a href="#Bottom-up Parsing-LR(1) Grammars-Background">Background</a></h3></div>
+<p>
+Reading tokens from an input buffer (same as with shift-reduce parsers)
+Add an extra state informatino after each symbol in the stack. The stae summarises the information contained in the stack below it. The stakc would look like:
+</p>
+
+<p>
+$$
+S_0~Expr~S_1 ~-~S_2~num~S_3
+$$
+</p>
+
+<p>
+We also use an additional table to tell us the next state to add given a replacement:
+</p>
+<ul>
+<li>
+action[state_on_top_of_stack, input_symbol] : returns one of: shift s(push a symbol and a state); reduce by a rule; accept; error.
+
+<li>
+goto[state_on_top_of_stack; non_terminal_symbol]: returns a new state to push onto the stack after a reduction.
+
+</ul>
+
+    </div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-= Lexical Analysis (Scanning) =
+=Lexical Analysis (Scanning) =
 
 * Reads character in the source program and groups them into words (basic unit of syntax)
 * Produces words and recognises what sort they are.

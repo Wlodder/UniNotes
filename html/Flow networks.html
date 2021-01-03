@@ -1,0 +1,63 @@
+<html>
+<head>
+    <link rel="Stylesheet" type="text/css" href="style.css" />
+    <title>Flow networks</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <a href="index.html">Index</a> |
+    <a href="diary/diary.html">Diary</a>
+    <hr>
+    <div class="content">
+    
+<div id="Flow networks"><h1 id="Flow networks" class="header"><a href="#Flow networks">Flow networks</a></h1></div>
+
+<p>
+A flow network is a quintuple \((V, E, s, t, c)\) where \((V,E)\) is a directed graph with no back-loops, \(s, t \in V\) are distinct, and \(c : E \rightarrow \mathbb{N} \)
+</p>
+
+<p>
+Let \( N = (V,E,s,t,c) \) be a flow network. A flow in \(N\) is a function \(f:E \rightarrow \mathbb{R}^{+}\) with the following properties:
+</p>
+<ul>
+<li>
+The net flow out of any node \(u=(V \ \{ s, t \})\) is zero: 
+\[
+\sum _{v;(u,v) \in E} f(u,v) - \sum _{v; (v, u) \in E} f(v,u) = 0
+\]
+
+<li>
+No edge \((u,v) \in E\) exceeds its capacity:
+\[
+f(u,v) &lt;= c(u,v)
+\]
+
+</ul>
+  
+  
+<p>
+The value of \(f\) is a quantity:
+</p>
+
+\[
+\sum _{v; (s,v) \in E} f(s,v)
+
+\]
+
+<p>
+or, equivalently:
+</p>
+
+\[
+\sum _{(v,t) \in E} f(v,t)
+\]
+
+<p>
+A flow is optimal if the outgoing flow from the source is equal to the incoming flow into the sink.
+</p>
+
+    </div>
+</body>
+</html>

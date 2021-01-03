@@ -1,0 +1,52 @@
+<html>
+<head>
+    <link rel="Stylesheet" type="text/css" href="style.css" />
+    <title>Tarjan's algorithm</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <a href="index.html">Index</a> |
+    <a href="diary/diary.html">Diary</a>
+    <hr>
+    <div class="content">
+    
+<div id="Tarjan's Algorithm"><h1 id="Tarjan's Algorithm" class="header"><a href="#Tarjan's Algorithm">Tarjan's Algorithm</a></h1></div>
+
+<p>
+The idea is to give every vertex an 'index' and 'lowlink' properties. We also keep two global variables: 'index (gindex here) and a stack.
+</p>
+
+<pre python>
+
+def strongConnect(v):
+	v.index = index
+	v.lowlink = index
+	index += 1
+	stack.push(v)
+	# procesws the daugheters
+	# Almost a DFS
+	for w in G.edges(v):
+		if w.index == None:
+			strongConnect(w)
+			v.lowlink = min(v.lowlink, w.lowlink)
+		if w == stack.top():
+			v.lowlink = min(v.lowlink, w.index)
+	if v.lowlink == v.index:
+		do {
+			w = stack.pop()
+			current_strong_connect_component.add(w)
+		} while w != v
+		print(current_strong_connect_component)
+
+</pre>
+
+<p>
+The intuition behind the 'lowlink' variable is that is provides the furthest back ancestor that is reachable by the current strongly connected component.
+Since we are using a stack to record our nodes for the current strongly connected component we essentially reverse the order until we reach the greatest ancestor (v.lowlink) after which we know that we've added all of the nodes to the current_strong_connect_component that belong there.
+</p>
+
+    </div>
+</body>
+</html>

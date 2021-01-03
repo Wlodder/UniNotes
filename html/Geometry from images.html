@@ -1,0 +1,94 @@
+<html>
+<head>
+    <link rel="Stylesheet" type="text/css" href="style.css" />
+    <title>Geometry from images</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <a href="index.html">Index</a> |
+    <a href="diary/diary.html">Diary</a>
+    <hr>
+    <div class="content">
+    
+<div id="Geometry from images"><h1 id="Geometry from images" class="header"><a href="#Geometry from images">Geometry from images</a></h1></div>
+
+<p>
+When dealing with computation geometry we must essentially deal with 3 coordinate systems: Image plane (2D), Camera frame (3D), World frame (3D). With some key ideas.
+</p>
+
+<p>
+The world frame contains the object as in the real world using the 3 dimensional world view.
+The camera frame deals with the rotation and location of the camera with respect to the object itself.
+The image plane is a distance \(F\), away from the camera's optical center (the focal length) and is the area on which the image is projected onto.
+</p>
+
+<p>
+<img src="/C:/Users/UKGC/vimwiki/images/penguin-focal-image.png" alt="Penguin" />
+</p>
+
+<p>
+Rays of light pass from the object's surface from through the optical center and are projected onto the image plane.
+</p>
+
+
+<p>
+We need to form a relationship between the image frame and world coordinate frame.
+</p>
+
+<p>
+<img src="/C:/Users/UKGC/vimwiki/images/projection-equation.png " alt="Equation(1)" />
+</p>
+
+
+<p>
+If you are wondering why there is an extra dimension for the Image coordinates and the world coordinates, the extra dimension represents a scaling factor.
+There are mesured with respect to the center of the image.
+</p>
+
+<div id="Geometry from images-Instrinsic parameters of the camera"><h2 id="Instrinsic parameters of the camera" class="header"><a href="#Geometry from images-Instrinsic parameters of the camera">Instrinsic parameters of the camera</a></h2></div>
+
+<p>
+<img src="/C:/Users/UKGC/vimwiki/images/projection-equation.png" alt="camera parameters" />
+</p>
+
+<p>
+Definitions:
+</p>
+<ul>
+<li>
+\(x_0, y_0\) represent the image origin, the point where the optical center of the camera intersects the image plane.Normally it is the center of the image.
+
+<li>
+\( \gamma\) represents the skew
+
+<li>
+\( \mathcal{f} \) represents the focal length of the camera in pixels
+
+<li>
+\(S_{\mathcal{x}} , S_{\mathcal{y}} \) represents the scale on the length of the pixel side, (lengths of a pixel)
+
+</ul>
+
+<div id="Geometry from images-Lens distortion"><h2 id="Lens distortion" class="header"><a href="#Geometry from images-Lens distortion">Lens distortion</a></h2></div>
+
+<p>
+<img src="/C:/Users/UKGC/vimwiki/images/distortion-kinds.png" alt=" kinds of distortion" />
+</p>
+
+<p>
+All of these distortions can be modelled using equations of the form
+</p>
+
+\[
+x' = x ( 1 + \alpha r^2 + \beta r ^ 4 + ...)
+\]
+
+<p>
+Where \(x'\) and \(x\) represent the origin and image center,and , \(r\) is the distance from the image center (computer using pythagoras). The \(\alpha\) and \(\beta\) coefficients are used to determine how bad the distortion is.
+</p>
+
+    </div>
+</body>
+</html>

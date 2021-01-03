@@ -1,0 +1,166 @@
+<html>
+<head>
+    <link rel="Stylesheet" type="text/css" href="style.css" />
+    <title>Particle Systems</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <a href="index.html">Index</a> |
+    <a href="diary/diary.html">Diary</a>
+    <hr>
+    <div class="content">
+    
+<div id="Particle Systems"><h1 id="Particle Systems" class="header"><a href="#Particle Systems">Particle Systems</a></h1></div>
+
+<ul>
+<li>
+Some phenmena are naturally modelled as a set of dynamic particles
+
+<li>
+Examples: water, clouds, fire.
+
+</ul>
+
+<p>
+Each particle has a set of properties which change over time:
+</p>
+<ul>
+<li>
+size, shape colour, opacity
+
+<li>
+positin, velocity, acceleration
+
+<li>
+age, lifetime
+
+</ul>
+
+<div id="Particle Systems-example: simple explosion model"><h3 id="example: simple explosion model" class="header"><a href="#Particle Systems-example: simple explosion model">example: simple explosion model</a></h3></div>
+<p>
+a = explosion area
+c = centre of explosion
+e = maximum ejection angle
+</p>
+
+<ul>
+<li>
+For some property P of the particle, we cmpute its initial value using 
+
+<ul>
+<li>
+\(P_{initial}=P_{mean} + (Random()*P_{variance})\) ( basically a distribution)
+
+</ul>
+</ul>
+
+<div id="Particle Systems-Computing particle position"><h3 id="Computing particle position" class="header"><a href="#Particle Systems-Computing particle position">Computing particle position</a></h3></div>
+
+<p>
+We normally use rules based of Newton's laws of motion
+</p>
+
+<ul>
+<li>
+Compute position of particle at time \(t\) using standard equations of motion
+
+<li>
+Or ... of course could use any algorithm
+
+</ul>
+
+\[
+x_{p} = v_{p}*t*cos*\beta_{p} 
+\]
+\[
+y_{p} = v_{p}*t*sin*\beta_{p} - \frac{1}{2}gt^{2} 
+\]
+
+<ul>
+<li>
+Also bounces...
+
+<li>
+(is \(y = y_{ground}\))
+
+<li>
+If yes, reset particle position, and damp new velocity.
+
+</ul>
+
+<div id="Particle Systems-Efficiency and scalability (see coursework)"><h2 id="Efficiency and scalability (see coursework)" class="header"><a href="#Particle Systems-Efficiency and scalability (see coursework)">Efficiency and scalability (see coursework)</a></h2></div>
+
+\[
+v_{t_{i+1}} = v_{t_{i}} + a*\Delta t
+\]
+<p>
+and
+</p>
+\[
+x_{t_{i+1}}=x_{t_{i}} + v * \Delta t
+\]
+
+
+\[
+x_{t_{i+1}} = 2 * x_{t_{i}} - x_{t_{i-1}} + a * (\Delta t)^{2} 
+\]
+
+<div id="Particle Systems-Efficiency and scalability (see coursework)-Particle system algorithm"><h3 id="Particle system algorithm" class="header"><a href="#Particle Systems-Efficiency and scalability (see coursework)-Particle system algorithm">Particle system algorithm</a></h3></div>
+
+<p>
+\( \text{For each frame of animation } \)
+</p>
+
+<p>
+\(\quad \text{Remove any particles past their lifetime} \)
+\(\quad \text{Create new particles and initialise them} \)
+\(\quad \text{Update attributes for each particle} \)
+\(\quad \quad \text{Position:}\)
+\(\quad \quad \quad\text{ Detect collisions of particles with environment} \)
+\(\quad \quad \quad \text{inter-particle collisions }\)
+\(\quad \quad \text{Colour, acceleration, etc}\)
+\(\quad \text{Render current particles }\)
+</p>
+
+<div id="Particle Systems-Rending ideas"><h2 id="Rending ideas" class="header"><a href="#Particle Systems-Rending ideas">Rending ideas</a></h2></div>
+
+<ul>
+<li>
+Point based:
+
+<ul>
+<li>
+Space is quantized (in pixels) distribute the particle based off overlap with pixels, anti-aliasing.
+
+</ul>
+<li>
+Line based:
+
+<ul>
+<li>
+render the particle's trajectory 
+
+</ul>
+<li>
+Distribution based:
+
+<ul>
+<li>
+let the particles location be the location of a gaussian distribution and render from there
+
+</ul>
+<li>
+Alpha textured quad:
+
+<ul>
+<li>
+make it transparent, always aligned to face the viewer, think games like wolfenstein.
+
+</ul>
+</ul>
+
+    </div>
+</body>
+</html>

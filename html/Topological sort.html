@@ -1,0 +1,118 @@
+<html>
+<head>
+    <link rel="Stylesheet" type="text/css" href="style.css" />
+    <title>Topological sort</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <a href="index.html">Index</a> |
+    <a href="diary/diary.html">Diary</a>
+    <hr>
+    <div class="content">
+    
+<div id="Topological sorting"><h1 id="Topological sorting" class="header"><a href="#Topological sorting">Topological sorting</a></h1></div>
+
+<p>
+A cycle in a directed graph G is a path from a vertex to itself.
+A graph is cyclic if there exists a cycle in the graph otherwise it is acyclic.
+</p>
+ 
+<p>
+Lemma
+</p>
+
+<p>
+Let \(G\) be a directed graph.
+</p>
+
+<p>
+If \( G \) has no cycles, then there is some vertex with zero in-degree (a sink).
+</p>
+
+
+<p>
+Proof idea
+</p>
+
+<p>
+Lets assume every node has positive in-degree. Hence there exists at least one node that points to every other node.
+</p>
+
+\[
+	u_{j} \rightarrow u_{i} \rightarrow ... \rightarrow u_{1} \rightarrow u_{0}
+\]
+<p>
+There will eventually be a point where j = i, such that j &gt; i, (a node we've already seen before) hence a cycle will have been found. 
+This is because we will eventually run out of nodes to add to the list due to our assumption that G (the set of nodes) is finite. Hence by proof by contradiction, we prove our Lemma.
+</p>
+
+<p>
+A topological sorting of a directed graph \( G = (V,E) \) is an ordering of its vertices as \( V = \{u_{0},...,u_{n-1}\}\) such that, for all edges \( (u_{i},u_{j}) \) we have i &lt; j. 
+</p>
+
+<div id="Topological sorting-The algorithm"><h2 id="The algorithm" class="header"><a href="#Topological sorting-The algorithm">The algorithm</a></h2></div>
+
+<ul>
+<li>
+Data structures used : stack.
+
+</ul>
+
+<p>
+The algorithm goes like this:
+</p>
+<ol>
+<li>
+If nodes is empty Goto(6)
+
+<li>
+Find nodes with 0 in degree ,remove from graph and add to stack
+
+<li>
+Remove node from stack and add to list head
+
+<li>
+If stack is empty Goto (1)
+
+<li>
+Goto (3)
+
+<li>
+If size(list) != n then graph is cyclic
+
+</ol>
+
+<p>
+This is true because if we have a list of nodes with fewer than n nodes in it this implies we have left some nodes in the Graph structure which is only the case when cycles are present, See Lemma above.
+</p>
+
+<div id="Topological sorting-The algorithm-Correctness proof"><h3 id="Correctness proof" class="header"><a href="#Topological sorting-The algorithm-Correctness proof">Correctness proof</a></h3></div>
+<ul>
+<li>
+When a vertex is popped off the stack, all of its predecessors (transitively) must already have been popped off the stack and so must have a lower index.
+
+<li>
+If all vertices have been indexed, we have a topological ordering.
+
+<li>
+If some vertices are not indexed, there is no topological ordering
+
+</ul>
+
+<p>
+Running time: \( O(m + n)~where~n = |V|~and~m = |E| \)
+</p>
+
+<p>
+What do we do if we want to topolically order and there cycles?
+</p>
+
+<p>
+We can factor the graph into acyclic components using Strongly Connected Components. When we form these subsets of strongly connected components it must be true that these sets of strongly connected components (subsets of the larger graph) can form 'super nodes' which are acyclic to one another.
+</p>
+
+    </div>
+</body>
+</html>

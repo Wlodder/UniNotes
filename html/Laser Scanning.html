@@ -1,0 +1,51 @@
+<html>
+<head>
+    <link rel="Stylesheet" type="text/css" href="style.css" />
+    <title>Laser Scanning</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <a href="index.html">Index</a> |
+    <a href="diary/diary.html">Diary</a>
+    <hr>
+    <div class="content">
+    
+<div id="Laser scanning"><h1 id="Laser scanning" class="header"><a href="#Laser scanning">Laser scanning</a></h1></div>
+
+<p>
+How do we use a laser to acquire 3D points in space.
+</p>
+
+<p>
+We start off with a camera and a laser, who form a triangle with eachother. The camera will be filtered such that we can only see the laser point and not the object.
+</p>
+
+<p>
+We can use the sine rule to find out the distance of the laser to the object, since we know the distance between the camera and the laser and the angle of the camera.
+</p>
+
+<p>
+We get this:
+</p>
+
+\[
+R(range) = \frac{B sin(q)}{sin(p+q)}
+\]
+
+
+<p>
+We continue this process slowly moving the laser towards the scanner. This will give us a set of 3D coordinates. After this we rotate and repeat, to get slices of information which can then be spliced together.
+</p>
+
+<div id="Laser scanning-3D scanning"><h2 id="3D scanning" class="header"><a href="#Laser scanning-3D scanning">3D scanning</a></h2></div>
+
+<p>
+Instead of a 1D ray of light we need a 2D stripe of light, conceptually the same process just a lot quicker. To find the range in 3D scanning we use similar triangles to figure it out.
+This will give us a set of raw range data which can then be interpreted.
+</p>
+
+    </div>
+</body>
+</html>

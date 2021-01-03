@@ -1,0 +1,137 @@
+<html>
+<head>
+    <link rel="Stylesheet" type="text/css" href="style.css" />
+    <title>Model acquisition</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <a href="index.html">Index</a> |
+    <a href="diary/diary.html">Diary</a>
+    <hr>
+    <div class="content">
+    
+<div id="Model Acquisition"><h1 id="Model Acquisition" class="header"><a href="#Model Acquisition">Model Acquisition</a></h1></div>
+
+<p>
+This originally done by hand. We decide where on the object we want to put the polygon. We do this for every vertex and eventually there will be model. There are a few issues with this:
+</p>
+<ul>
+<li>
+Lack of detail
+
+<li>
+limited points of acquisition
+
+<li>
+model must stay still
+
+</ul>
+
+<p>
+This is not just limited to human faces, all objects lose detail when transfered by hand. The fundamental problem is the sheer number of polygons the natural world requires in order for it be accurate.
+</p>
+
+<p>
+Here are some examples of modelling:
+</p>
+
+<ul>
+<li>
+interactively - Sketchup
+
+<li>
+Algorithmically - producing a more accurate models
+
+<li>
+CAD systems - Autodesk: lots of symetry involved
+
+<ul>
+<li>
+extrude and profile
+
+<li>
+lofting: define a set of key profiles along an arbitrary 3d path, and interpolate between them
+
+</ul>
+<li>
+Generative Modelling:
+
+<ul>
+<li>
+Fractal modelling
+
+<li>
+Grammar-based-systems
+
+<li>
+Particle systems
+
+</ul>
+</ul>
+
+<div id="Model Acquisition-Acquiring models directly"><h2 id="Acquiring models directly" class="header"><a href="#Model Acquisition-Acquiring models directly">Acquiring models directly</a></h2></div>
+
+<p>
+How can we look at a scene and represent it geometrically?
+</p>
+
+<p>
+There are some difficulties with representing some objects:
+</p>
+<ul>
+<li>
+Ambiguous geometry - See Escher paintings, optical illusions
+
+<li>
+Ambiguous colours - Blue/Gold dress; apparent colour is product of reflectivity and illuminant and sensitivity
+
+</ul>
+
+
+<div id="Model Acquisition-Acquiring models directly-A perceptive approach"><h3 id="A perceptive approach" class="header"><a href="#Model Acquisition-Acquiring models directly-A perceptive approach">A perceptive approach</a></h3></div>
+
+<ul>
+<li>
+Humans 'acquire 3D models' all the time
+
+<li>
+... without any conscious thought processes
+
+</ul>
+
+<ul>
+<li>
+One attempt to describe what is happening is the Active Vision theory
+
+<ul>
+<li>
+iterative process
+
+<li>
+converges on a 'solution'
+
+<li>
+see COMP37212 Computer Vision
+
+</ul>
+</ul>
+
+<div id="Model Acquisition-Acquiring models directly-Wholly automatic active vision"><h3 id="Wholly automatic active vision" class="header"><a href="#Model Acquisition-Acquiring models directly-Wholly automatic active vision">Wholly automatic active vision</a></h3></div>
+
+<ul>
+<li>
+Current acquisition systems follow the generel principles of Active Vision modelling
+
+<li>
+No current automatic system can perform perfectly 
+
+<li>
+With some additional manual intervention, very good results can be achieve.
+
+</ul>
+
+    </div>
+</body>
+</html>

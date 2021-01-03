@@ -1,0 +1,66 @@
+<html>
+<head>
+    <link rel="Stylesheet" type="text/css" href="style.css" />
+    <title>Grammar based modelling</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <a href="index.html">Index</a> |
+    <a href="diary/diary.html">Diary</a>
+    <hr>
+    <div class="content">
+    
+<div id="Grammar based modelling"><h1 id="Grammar based modelling" class="header"><a href="#Grammar based modelling">Grammar based modelling</a></h1></div>
+
+<ul>
+<li>
+We can define objects using simple grammar production
+
+</ul>
+
+<ul>
+<li>
+Trace out path using commands like:
+
+<ul>
+<li>
+F = move 1 unit forwards
+
+<li>
+L = turn left through angle \(\theta\)
+
+<li>
+R = turn right through angle \(\theta\)
+
+</ul>
+</ul>
+
+<div id="Grammar based modelling-Example of grammar-based modelling"><h2 id="Example of grammar-based modelling" class="header"><a href="#Grammar based modelling-Example of grammar-based modelling">Example of grammar-based modelling</a></h2></div>
+<ul>
+<li>
+We can apply the rule reculsivly replacing each \(F\) again (suitable transformed) using the rule
+
+<li>
+\( F \rightarrow FLFRRFLF\)
+
+</ul>
+<p>
+This reproduces a fractal called the Kock curve, whose detail depends on the number recursive replacements have occured.
+</p>
+
+<div id="L-systems"><h1 id="L-systems" class="header"><a href="#L-systems">L-systems</a></h1></div>
+
+<ul>
+<li>
+L-systems add push ( and pop ) commands, which permit more complex structures
+
+<li>
+Example: \( F \rightarrow F[RF]F[LF]F\) (the [] denote a separate branch)
+
+</ul>
+
+    </div>
+</body>
+</html>

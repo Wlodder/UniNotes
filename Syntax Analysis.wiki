@@ -1,0 +1,155 @@
+= Syntax Analysis =
+
+Lexical Analysis: 
+	* Reads characters of the input program an produces tokens
+		- But: Are they syntactically correct? Are they valid sentences of the input language
+
+The descriptive power of regular expressions has limits:
+* Not all languages can be described by Regular Expressions (See the chomsky hierarchy)
+* An example is the example of a nested expression since regular languages do not have memory.
+* In regular expressinos, a non-terminal symbol cannot be used before it has been fully defined.
+
+Chomsky's hierarchy of Grammars:
+* Phrase structured
+* Context Sensitive
+	- number of Left Hand Side Symbols is less than or equal to the number of right hand symbols
+* Context-free
+	- The Left Hand Side Symbol is non-terminal
+* regular
+	- Only rules of the form: $ A \rightarrow \epsilon, A \rightarrow a, A \rightarrow p B$
+
+the regular languages are the most restricted kind of grammar. 
+
+== Context free grammars ==
+
+Context free syntax is specified with a context-free grammar.
+
+A grammar can be defined as a 4-tuple $G={S, N, T, P}$, where:
+	* S is a starting symbol
+	* N is a set of non-terminal symbols
+	* T is a set of terminal symbols
+	* P is a set of production rules
+
+=== Derivations and parse trees ===
+
+Derivation: a sequence of derivatino steps:
+* At each step, we choose a non-terminal to replace
+* Different choices can lead to different derivations
+
+Two derivations are of interest:
+* Leftmost derivation: at each step, replace the leftmost non-terminal 
+* Rightmost derivation: at each step, replace the rightmost non-terminal
+
+A parse tree is a graphical representation for a derivation that filters out the choice regarding the replacement order.
+
+Example:
+CFG is:
+$$%align%
+Goal \rightarrow Expr
+$$
+
+$$
+Expr \rightarrow Expr~or~Expr ~|~ number ~ | ~ id
+$$
+
+$$
+Op \rightarrow +|-|*|/
+$$
+
+
+We can use this to parse the expression, " x - 2 * y "
+However in closer inspection to the meaning of the phrase the rightmost and left most derivations give us two meanings: "x - (2 * y)" and "(x - 2) * y". 
+The two derivations point out a problem with this grammar in that it has no notion of precedence ( or implied order of evaluation). To add precedence we force the parse to recognise high-precedence subexpressions first using brackets.
+
+=== Ambiguity === 
+A grammar that produces more than one parse tree for some sentence is ambiguous. Or:
+* If a grammar has more than noe leftmost derivation for a single sentential form, the grammar is ambiguous. 
+* If a grammar has more than one rightmost derivation for a single sentential form, the grammar is ambiguous.
+
+Example:
+* $Stmt \rightarrow \text{if Expr then Stmt | if Expr then Stmt else Etmt | ... }$
+* What are the derivations of:
+	- if E1 then if E2 then S1 else S2
+
+The standard way to get rid of ambiguoity we rewrite the grammar.
+
+=== Deeper Ambiguity ===
+
+* Ambiguity usually refers to confusion in the CFG
+* Overloading can create deeper ambiguity
+	- E.g.: a=b(3) : b could be either a function or a variable (FORTRAN, C++)
+* Disambiguating this one requires context:
+	* An issue of type, not context-free syntax
+	* Needs values of declarations
+	* Requires an extra-grammatical solution
+* Resolving ambiguity:
+	* if context-free: rewrite the grammar
+	* context-sensitive ambiguity: check with other means: needs knowledge of types, declarations, ... This is a language design problem
+
+Sometimes the compiler write accepts an ambiguous grammar: parsing techniques may do the "right thing" but this is not always true.
+
+== Parsing == 
+
+Top-down parsers:
+* Construct the top node of the tree and then the rest in pre-order (depth-first)
+* Pick a production and try to match the input; if you fail; backtrack
+* Essentially , we try to find a leftmost derivation for the input string (which we scan left-to-right).
+* some grammars are backtrack-free (predictive parsing)
+
+Bottom-down parsers:
+* Construct the tree for an input string, beginning at the leaves and working up towards the top (root)
+* Bottom-up parsing, using left-to-right scan of the input, tries to construct a rightmost derivation in reverse.
+* Handle a large class of grammars.
+
+=== Top-Down Recursive-Descent Parsing ===
+* Construct the root with the starting symbol of the grammar.
+* Repeat until the fringe of the parse tree matches the input string:
+	- Assuming a node labelled A, select a production rule with A on its left-hand-side and, for each symbol on its right-hand-side, construct the appropriate childe.
+	- When a terminal symbol is added to the fringe and it doesn't match the fringe, backtrack.
+	- Find the next node to be expanded.
+
+
+The key is picking the right productions in the first step: that choice should be guided by the input string.
+
+
+=== Left-Recursive Grammars ===
+
+* Definition: a grammar is left-recursive if it has a non-terminal symbol A, such that there is a derivation A -> Aa, for some string a.
+* A left-recursive grammar can cause a recursive-descent parser to go into into an infinite loop.
+* Eliminating  left-recursion: In many cases, it is sufficient to replace $ A \rightarrow A a | b $ with $ A \rightarrow b A ' $ and $ A' \rightarrow a A' | \epsilon$
+
+What we have essentially done in the examble above is turn the left recursive grammar into a right recursive grammar. You may think this is counter intuitive however, since we are dealing with leftmost derivation in topdown parsers we do not care about right recursion.
+
+== Where are we? == 
+
+We can produce a top-down parser, but if it picks the wrong production rule it has to backtrack.
+
+Idea: look ahead in input and use context to pick correctly.
+How much lookahead is needed?
+* in general, an arbitrarily large amount.
+* Fortunately, most programming language constructs fall into subclasses of context-free grammars that can be parsed with limited lookahead.
+
+
+== Predictive Parsing == 
+
+The basic idea is to choose a rule that is the correct rule to expand given the context of the thing that we are parsing.
+
+* FIRST sets:
+	- For any symbol A, FIRST(A) is defined as "the set of terminal symbols that appear as the first symbol of one or more strings dervied from A".
+	- E.g. From the previous grammar: FIRST(Expr) = {+, -, $\epsilon$}, FIRST(Term) = {*, /, $\epsilon$}, FIRST(Factor) = {number, id}
+* The LL(1) property:
+	- If $A \rightarrow a" and " A \rightarrow b" both appear in the grammar, we would like to have: $FIRST(a) \cup FIRST(b) = \null$. This would allow parser to make a correct choice with a lookahead of exactly one symbol!
+
+If LL(1) property is upheld in the grammar then it is possible for the grammar to be deterministic.
+
+But what if my grammar does not have the LL(1) property?
+
+We can transform it using factoring.
+
+=== Algorithm ===
+
+1. For each non-terminal A, find the longest prefix, say a, common to two of more of its alternatives
+2. if $a \neq \epsilon $ then replace all the A productions, $A \rightarrow ab_1 | ab_2 | ab_3 | ... | ab_n | \gamma$, where $\gamma$ is anything that does not begin with a, with $A \rightarrow aZ | \gamma$ and $Z \rightarrow b_1 | b_2 | b_3| ... | b_n$
+Repeat the above until no common prefixes remain
+
+[[Bottom-Up Parsing]]

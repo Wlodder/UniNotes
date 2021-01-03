@@ -1,0 +1,84 @@
+<html>
+<head>
+    <link rel="Stylesheet" type="text/css" href="style.css" />
+    <title>Neuronal models</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <a href="index.html">Index</a> |
+    <a href="diary/diary.html">Diary</a>
+    <hr>
+    <div class="content">
+    
+<div id="Neuronal Models"><h1 id="Neuronal Models" class="header"><a href="#Neuronal Models">Neuronal Models</a></h1></div>
+
+<div id="Neuronal Models-Basics"><h2 id="Basics" class="header"><a href="#Neuronal Models-Basics">Basics</a></h2></div>
+
+<p>
+As in Diehl and Cook, the models outlined are predominantly LIF neuron models which are in turn based off RC circuits and then turned into systems of ODEs. The exact dynamics of each of these systems are different depending on the specifics however its needless to say LIF neurons are usually the most popular to implement; other popular models are the Izhekevich neuron and HH neuron.
+</p>
+
+<p>
+LIF neurons attempt to model the membrane voltage dynamics through this system of ODEs which are generalized using:
+</p>
+
+\[
+	\tau \frac{dv}{dt} = g(v) + R_{0}I(t)	
+\]
+
+<p>
+and then integrating. Models can either be current based (easier to implement) or conductance based (more biologically plausible)
+,hence in Dielh and Cook and this proejct conductance based modelling is used. Conductance based modelling requires the use of reversal potentials for the conversion between the current domain and conductance domain. This relationship is modelled as such:
+</p>
+
+\[
+	I_{inh} = -g_{inh}(E_{inh} - V) 
+\]
+\[
+	I_{exc} = -g_{exc}(E_{exc} - V)
+\]
+
+<p>
+with the appropiate substitutions being placed into the membrane equation. The 'E<sub><small>inh</small></sub>' variables are the reversal potential which are calculated using the Nerst potential however I am not going to cover that here.
+The Nerst equation in a basic sense is used to calculate the reversal potentials of the different kinds of synapses present in the brain by using information about the kinds of Ions used in each synapse and their various densities using Bolztman distributions.
+</p>
+
+<p>
+It is important to mention that in the conductance based models the conductances are both decaying exponetially with respect to a time constant individual to each synapse.
+</p>
+
+
+<div id="Neuronal Models-Synapses"><h2 id="Synapses" class="header"><a href="#Neuronal Models-Synapses">Synapses</a></h2></div>
+
+<p>
+You may have noticed subscripts of 'inh' and 'exc' these are to denote the main kinds of synapses: 'inhibitory' and 'excitory'.
+These are different in many ways however the in the way we care about them the main differences are the reversal potentials and what action we perform based on which synapse the spikes arrive from. Inhibitory synapses tend to have reversal potentials 100mV and excitory synapses 0mV. 
+These are important because when the spikes arrive at postsynaptic membrane the currents are added up and modelled as a function of current 'I(t)', the input current. 
+</p>
+
+\[
+	I(t) = \alpha _{exc} (\sum_j \delta _{exc} (t - t_{j})) -  \alpha _{inh} (\sum_j \delta _{inh} (t - t_{j})) 
+\]
+
+<p>
+Which tells us the input current at any given time t is the current produced by spikes from excitory neurons minus the current produced from inhibitory neurons. It is important there are both kinds of neurons to prevent blowing up of current and hence membrance voltage. An example of which can be a lack of inhibitory neurons can cause over activity in the brain and producing an eplileptic state.
+</p>
+
+<div id="Neuronal Models-Spikes"><h2 id="Spikes" class="header"><a href="#Neuronal Models-Spikes">Spikes</a></h2></div>
+
+<p>
+The main form of informatino tranmission between neurons are via 'spikes', these are modelled using the dirac delta function. When we add current to a membrane of 'inject' we are really sending different forms of current which leads to the neuron reacting differently.
+The most common input current functions are Heaviside step function \( \Theta \) or sinusodial function and of course the delta function. All of these have difference properties when modelling membrane voltages. Spikes are also produced when a neuron 'fires'.
+When a neuron fires the membrane voltage has exceeded a threshold function and then the neuron enters a refractory period during which the neuron cannot fire again. In addition to this the neuron also resets its voltage to a reset value, this is usually lower than the resting voltage. 
+More complicated models will also incorporate a random variable to represent subthreshold noise that occurs due to other nearby neurons SpiNNaker accounts for this but instead by basing the threshold of the neurons off random variables instead, see Stochastic Maas Threshold.
+</p>
+
+<p>
+.
+</p>
+
+    </div>
+</body>
+</html>

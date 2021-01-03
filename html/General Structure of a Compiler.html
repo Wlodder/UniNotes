@@ -1,0 +1,132 @@
+<html>
+<head>
+    <link rel="Stylesheet" type="text/css" href="style.css" />
+    <title>General Structure of a Compiler</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <a href="index.html">Index</a> |
+    <a href="diary/diary.html">Diary</a>
+    <hr>
+    <div class="content">
+    
+<div id="General Structure of a Compiler"><h1 id="General Structure of a Compiler" class="header"><a href="#General Structure of a Compiler">General Structure of a Compiler</a></h1></div>
+
+\[
+\text{Source code}\rightarrow\text{Front-End}\rightarrow\text{Intermediate Representation}\rightarrow\text{Back-End}\rightarrow\text{Target code}
+\]
+
+<ul>
+<li>
+Front-end performs the analysis of the source language:
+
+<ul>
+<li>
+Recognises legal and illegal programs and reports errors.
+
+<li>
+"understands" the input program and collects its semantics in an IR
+
+<li>
+Produces IR an dshape the code fro the back-end.
+
+<li>
+Much can be automated
+
+</ul>
+<li>
+Back-end the target language synthesis
+
+<ul>
+<li>
+Chooses instructions to implement each IR operation.
+
+</ul>
+</ul>
+
+<p>
+Using different Front-ends(m) and different back-ends(n) gives us \( m x n \) compilers \( m + n \), very efficient.
+</p>
+
+<ul>
+<li>
+All languages specific knowledge must be encoded in the front-end
+
+<li>
+All target specific knowledge must be encoded in the back-end
+
+</ul>
+
+<div id="General Structure of a Compiler-Structure of the compiler"><h2 id="Structure of the compiler" class="header"><a href="#General Structure of a Compiler-Structure of the compiler">Structure of the compiler</a></h2></div>
+<div id="General Structure of a Compiler-Structure of the compiler-Front-end"><h3 id="Front-end" class="header"><a href="#General Structure of a Compiler-Structure of the compiler-Front-end">Front-end</a></h3></div>
+<ol>
+<li>
+Source
+
+<li>
+Lexical analysis
+
+<li>
+Syntax Analysis
+
+<li>
+Abstract Syntax Tree
+
+<li>
+Annotated AST
+
+</ol>
+
+<div id="General Structure of a Compiler-Structure of the compiler-I.R"><h3 id="I.R" class="header"><a href="#General Structure of a Compiler-Structure of the compiler-I.R">I.R</a></h3></div>
+<ol>
+<li>
+I.R.
+
+</ol>
+
+<div id="General Structure of a Compiler-Structure of the compiler-Back-end"><h3 id="Back-end" class="header"><a href="#General Structure of a Compiler-Structure of the compiler-Back-end">Back-end</a></h3></div>
+<ol>
+<li>
+I.C Optimisation 
+
+<li>
+Code Generation
+
+<li>
+Target code Optimisation
+
+<li>
+Target code Generation
+
+</ol>
+
+<div id="General Structure of a Compiler-Lexical Analysis (Scanning)"><h2 id="Lexical Analysis (Scanning)" class="header"><a href="#General Structure of a Compiler-Lexical Analysis (Scanning)">Lexical Analysis (Scanning)</a></h2></div>
+<ul>
+<li>
+Reads characters in the source program and groups them into words (basic unit of syntax)
+
+<li>
+Produces words and recognises what sort they are
+
+<li>
+The output is called token and is a pair of the form &lt;type,lexeme&gt; or &lt;token_class, attribute&gt;
+
+<li>
+E.g. \( a=b+c \) becomes &lt;id,a&gt; &lt;=,&gt; &lt;id,b&gt; &lt;+,&gt; &lt;id,c&gt;
+
+<li>
+Needs to record each id attribute: keep symbol table
+
+<li>
+Lexical analysis eliminates white space, etc...
+
+<li>
+Speed is important - use a specialised tool :e.g., flex - a tool for generating scanners: programs which recognise lexical pattern in text; for more info: % man flex
+
+</ul>
+
+    </div>
+</body>
+</html>

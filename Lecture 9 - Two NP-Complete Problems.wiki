@@ -1,0 +1,5 @@
+= Two NP-Complete Problems =
+
+NP-Complete and NPTime-Complete mean the same thing.
+
+* [[3-colourability]]

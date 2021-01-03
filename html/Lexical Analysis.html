@@ -1,0 +1,142 @@
+<html>
+<head>
+    <link rel="Stylesheet" type="text/css" href="style.css" />
+    <title>Lexical Analysis</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <a href="index.html">Index</a> |
+    <a href="diary/diary.html">Diary</a>
+    <hr>
+    <div class="content">
+    
+<div id="Lexical Analysis (Scanning)"><h1 id="Lexical Analysis (Scanning)" class="header"><a href="#Lexical Analysis (Scanning)">Lexical Analysis (Scanning)</a></h1></div>
+
+<ul>
+<li>
+Reads character in the source program and groups them into words (basic unit of syntax)
+
+<li>
+Produces words and recognises what sort they are.
+
+<li>
+The output is called token and is a pair of the form &lt;type,lexeme&gt; or &lt;token_class, attribute&gt;
+
+<li>
+E.g. \( a=b+c \) becomes &lt;id, a&gt; &lt;=,&gt; &lt;id,b&gt; &lt;+,&gt; &lt;id,c&gt;
+
+<li>
+Needs to record each id attribute: 
+
+</ul>
+
+<p>
+In natural languages, mapping words to part of speech is idiosyncratic.
+</p>
+
+<p>
+In formal languages, mapping words to part of speech is syntatic.
+</p>
+<ul>
+<li>
+based on denotation
+
+<li>
+makes this a matter of syntax
+
+<li>
+reserved keywords are important
+
+</ul>
+
+<div id="Lexical Analysis (Scanning)-Some definitions"><h3 id="Some definitions" class="header"><a href="#Lexical Analysis (Scanning)-Some definitions">Some definitions</a></h3></div>
+
+<ul>
+<li>
+A vocabulary (alphabet) is a finite set of symbols
+
+<li>
+A string is any finite sequence of symbols from vocabulary
+
+<li>
+A language is any set of strings over a fixed vocabulary.
+
+<li>
+A grammar is a finite way of describing a language.
+
+<li>
+A context-free grammar, \(G\) is a 4-tuple, \(G=(S,N,T,P)\), where:
+
+<ul>
+<li>
+\(S\): starting symbol
+
+<li>
+\(N\): set of non-terminal symbols
+
+<li>
+\(T\): set of terminal symbols
+
+<li>
+\(P\): set of production rules
+
+</ul>
+<li>
+A language is the set of all terminal production of \(G\)
+
+</ul>
+
+<div id="Lexical Analysis (Scanning)-Why all this?"><h2 id="Why all this?" class="header"><a href="#Lexical Analysis (Scanning)-Why all this?">Why all this?</a></h2></div>
+
+<ul>
+<li>
+Why study lexical analysis?
+
+<ul>
+<li>
+To avoid writing lexical analysers by hand
+
+<li>
+To simplify specification and implementation
+
+<li>
+To understand the underlying techniques and technologies
+
+</ul>
+<li>
+We want to specify lexical patterns (to derive tokens):
+
+<ul>
+<li>
+Some parts are easy:
+
+<ul>
+<li>
+\(WhiteSpace \rightarrow blank~|~tab~|~WhiteSpace~blank~|~WhiteSpace~tab\)
+
+<li>
+Keywords and operators (if, then ,=, +)
+
+<li>
+Comments (/* followed by */ in C, // in C++, % in latex ...)
+
+</ul>
+<li>
+Some parts are more complex 
+
+<ul>
+<li>
+Identifiers (letter followed by - up to n - alphanumerics ...)
+
+</ul>
+<li>
+Numbers
+
+</ul>
+</ul>
+
+    </div>
+</body>
+</html>
